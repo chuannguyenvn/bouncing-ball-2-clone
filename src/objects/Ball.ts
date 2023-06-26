@@ -17,6 +17,10 @@ class Ball extends Phaser.Physics.Matter.Sprite implements IUpdatable
         scene.matter.world.on(Phaser.Physics.Matter.Events.COLLISION_START, () => {
             this.setVelocityY(-10)
         })
+        
+        scene.input.on(Phaser.Input.Events.POINTER_DOWN, () => {
+            this.setVelocityY(10)
+        })
     }
     
     public update(time: number, delta: number) : void {
