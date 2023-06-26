@@ -8,8 +8,8 @@ class Ball extends Phaser.Physics.Matter.Sprite
         super(scene.matter.world, 100, 100, SpriteKey.BALL_DEFAULT)
         this.scene.add.existing(this)
 
-        this.setScale(Constants.BALL_SPRITE_SCALE)
-        this.setCircle(1024 * Constants.BALL_SPRITE_SCALE)
+        this.setDisplaySize(Constants.BALL_SPRITE_RADIUS * 2, Constants.BALL_SPRITE_RADIUS * 2)
+        this.setCircle(Constants.BALL_SPRITE_RADIUS)
     }
 }
 

@@ -1,5 +1,5 @@
 ﻿const Constants = {
-    BALL_SPRITE_SCALE: 0.1,
+    BALL_SPRITE_RADIUS: 25,
     PLATFORM_THICKNESS: 50,
 }
 
