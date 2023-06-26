@@ -8,7 +8,8 @@ class Platform extends Phaser.Physics.Matter.Sprite
         super(scene.matter.world, 0, 0, SpriteKey.SQUARE)
         this.scene.add.existing(this)
 
-        this.setRectangle(width, Constants.PLATFORM_THICKNESS)
+        this.setTint(Constants.PLATFORM_TINT)
+        this.setRectangle(width * 2, Constants.PLATFORM_THICKNESS * 4)
         this.setDisplaySize(width, Constants.PLATFORM_THICKNESS)
         this.setStatic(true)
         this.setPosition(0, yPosition)
