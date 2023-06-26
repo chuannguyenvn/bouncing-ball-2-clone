@@ -10,14 +10,14 @@ const GAME_CONFIG: Phaser.Types.Core.GameConfig = {
     scale: {
         mode: Phaser.Scale.RESIZE,
     },
-    scene: [WelcomeScene, PlayScene],
+    scene: [PlayScene, WelcomeScene],
     backgroundColor: 0x111111,
     physics: {
         default: 'matter',
         matter: {
             gravity: {
                 x: 0,
-                y: 9.8
+                y: 0.5
             }
         }
     },
