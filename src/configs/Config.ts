@@ -11,7 +11,7 @@ const GAME_CONFIG: Phaser.Types.Core.GameConfig = {
         mode: Phaser.Scale.RESIZE,
     },
     scene: [PlayScene, WelcomeScene],
-    backgroundColor: 0x111111,
+    backgroundColor: 0xffffff,
     physics: {
         default: 'matter',
         matter: {
