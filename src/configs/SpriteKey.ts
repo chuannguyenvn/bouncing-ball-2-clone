@@ -1,6 +1,7 @@
 ﻿enum SpriteKey
 {
-    BALL_DEFAULT = 'ball-default'
+    SQUARE = 'square',
+    BALL_DEFAULT = 'ball-default',
 }
 
 export default SpriteKey
