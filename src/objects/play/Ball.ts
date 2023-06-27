@@ -26,7 +26,7 @@ class Ball extends Phaser.Physics.Matter.Sprite
         this.setMass(1)
         this.setFriction(0, 0, 0)
         this.setStatic(true)
-        
+
         scene.matter.world.on(
             Phaser.Physics.Matter.Events.COLLISION_START,
             (event: CollisionStartEvent, bodyA: BodyType, bodyB: BodyType) => {
@@ -77,7 +77,7 @@ class Ball extends Phaser.Physics.Matter.Sprite
                 }
             })
         })
-        
+
         this.playScene.stateMachine.configure(PlayState.MOVING).onEntry(-1, () => this.setStatic(false))
     }
 }

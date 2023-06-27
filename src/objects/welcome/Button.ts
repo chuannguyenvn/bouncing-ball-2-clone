@@ -10,7 +10,7 @@ class Button<S extends Scene> extends Phaser.GameObjects.Image
     constructor(scene: S, idleSprite: SpriteKey, hoverSprite?: SpriteKey, clickedSprite?: SpriteKey) {
         super(scene, 0, 0, idleSprite)
         this.scene.add.existing(this)
-        
+
         this.on(GAMEOBJECT_POINTER_OUT, () => this.setTexture(idleSprite))
         if (hoverSprite) this.on(GAMEOBJECT_POINTER_OVER, () => this.setTexture(hoverSprite))
         if (hoverSprite) this.on(GAMEOBJECT_POINTER_UP, () => this.setTexture(hoverSprite))
