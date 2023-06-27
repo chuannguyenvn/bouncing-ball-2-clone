@@ -31,11 +31,17 @@ class Ball extends Phaser.Physics.Matter.Sprite implements IUpdatable
             (event: CollisionStartEvent, bodyA: BodyType, bodyB: BodyType) => {
                 if (bodyB.gameObject.type === GameObjectType.PLATFORM)
                 {
-                    this.setVelocity(10, -10)
                     this.touchedPlatform.invoke()
 
                     const index = (bodyB.gameObject as Platform).index
                     this.playScene.platformSpawner.touchedPlatformIndex.invoke(index)
+
+                    scene.matter.world.remove((bodyB.gameObject as Platform).body as object)
+                    scene.time.addEvent({
+                        delay: 5, callback: () => {
+                            this.setVelocity(10, -10)
+                        }
+                    })
                 }
                 else
                 {
