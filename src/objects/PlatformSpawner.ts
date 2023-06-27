@@ -2,7 +2,6 @@
 import PlayScene from "../scenes/PlayScene"
 import {ParamGameEvent} from "../utilities/Event"
 import Constants from "../configs/Constants"
-import IUpdatable from "../interfaces/IUpdatable"
 
 class PlatformSpawner
 {
@@ -12,8 +11,8 @@ class PlatformSpawner
 
     private platforms: Platform[] = []
     private currentPlatformIndex: number = 0
-    private farthestPlatformXPosition: number = -200
-    private currentWidth: number = 100
+    private farthestPlatformXPosition: number = -1
+    private currentWidth: number = 65
     private currentHeight: number = 600
 
     constructor(scene: PlayScene) {
@@ -40,17 +39,19 @@ class PlatformSpawner
                 this.placeNextPlatform()
             }
 
-            this.currentWidth = Math.max(this.currentWidth - 10, 20)
+            this.currentWidth = Math.max(this.currentWidth - 5, 20)
         })
-        
+
         this.easePlatformHeight()
     }
 
     public placeNextPlatform() {
         this.currentPlatformIndex = (this.currentPlatformIndex + 1) % Constants.PLATFORM_POOL_SIZE
         const platform = this.platforms[this.currentPlatformIndex]
-        platform.setup(this.farthestPlatformXPosition + 200 + (Math.random() * 2 - 1) * 5, this.currentHeight, this.currentWidth)
-        this.farthestPlatformXPosition += 200
+        let xPosition = this.farthestPlatformXPosition + 200 + (Math.random() * 2 - 1) * 25
+        if (this.farthestPlatformXPosition === -1) xPosition = 0
+        platform.setup(xPosition, this.currentHeight, this.currentWidth)
+        this.farthestPlatformXPosition = xPosition
         console.log(this.currentHeight)
     }
 
