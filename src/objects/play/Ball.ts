@@ -8,6 +8,7 @@ import PlayState from "../../states/PlayState"
 import {PlatformComponent} from "./PlatformComponent"
 import CollisionStartEvent = Phaser.Physics.Matter.Events.CollisionStartEvent
 import Tween = Phaser.Tweens.Tween
+import Gem from "./Gem"
 
 class Ball extends Phaser.Physics.Matter.Sprite
 {
@@ -55,7 +56,7 @@ class Ball extends Phaser.Physics.Matter.Sprite
                 else if (bodyB.gameObject && bodyB.gameObject.type === GameObjectType.GEM)
                 {
                     this.playScene.collectedGems++
-                    bodyB.gameObject.destroy()
+                    (bodyB.gameObject as Gem).platformParent.collectGem()
                 }
                 else
                 {

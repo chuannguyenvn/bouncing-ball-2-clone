@@ -32,6 +32,8 @@ class Platform extends Phaser.GameObjects.GameObject
         this.platformLeft = new PlatformComponent(scene, this, PlatformChildType.LEFT)
         this.platformRight = new PlatformComponent(scene, this, PlatformChildType.RIGHT)
         this.platformMiddle = new PlatformComponent(scene, this, PlatformChildType.MIDDLE)
+
+        this.gem = new Gem(this.playScene, this)
     }
 
     public setup(xPosition: number, yPosition: number, width: number): void {
@@ -45,8 +47,11 @@ class Platform extends Phaser.GameObjects.GameObject
 
         if (Math.random() < 0.9)
         {
-            if (!this.gem || !this.gem.body) this.gem = new Gem(this.playScene)
             this.gem.setPosition(xPosition, yPosition - 25)
+        }
+        else
+        {
+            this.gem.setPosition(0, -100)
         }
     }
 
@@ -61,6 +66,10 @@ class Platform extends Phaser.GameObjects.GameObject
             duration: 400,
             ease: 'Linear'
         })
+    }
+
+    public collectGem(): void {
+        this.gem.setPosition(0, -100)
     }
 }
 
