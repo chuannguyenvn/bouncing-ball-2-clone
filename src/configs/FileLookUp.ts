@@ -6,6 +6,7 @@ const FileLookUp = {
     [SpriteKey.BALL_DEFAULT]: '../../assets/images/Ball_Default.png',
     [SpriteKey.BUTTON_BLUE_IDLE]: '../../assets/images/Button_blue_idle.png',
     [SpriteKey.BUTTON_BLUE_CLICKED]: '../../assets/images/Button_blue_clicked.png',
+    [SpriteKey.GEM]: '../../assets/images/Gem.png',
 }
 
 export default FileLookUp

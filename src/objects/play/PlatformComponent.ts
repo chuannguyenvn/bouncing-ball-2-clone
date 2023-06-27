@@ -64,7 +64,6 @@ class PlatformComponent extends Phaser.Physics.Matter.Image
             case PlatformChildType.MIDDLE:
                 this.setTint(0x00ff00)
                 break
-
         }
     }
 }

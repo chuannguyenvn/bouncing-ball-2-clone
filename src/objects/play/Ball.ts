@@ -35,7 +35,7 @@ class Ball extends Phaser.Physics.Matter.Sprite
                         scene.addScore(2)
                     else
                         scene.addScore(1)
-                    
+
                     if (this.velocityTween) this.velocityTween.stop()
 
                     const platformComponent = (bodyB.gameObject as PlatformComponent)
@@ -50,6 +50,10 @@ class Ball extends Phaser.Physics.Matter.Sprite
                             this.setAngularVelocity(0.2)
                         }
                     })
+                }
+                else if (bodyB.gameObject && bodyB.gameObject.type === GameObjectType.GEM)
+                {
+                    bodyB.gameObject.destroy()
                 }
                 else
                 {

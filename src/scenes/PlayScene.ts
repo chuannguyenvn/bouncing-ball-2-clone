@@ -30,6 +30,7 @@ class PlayScene extends Phaser.Scene
     preload(): void {
         PreloadHelper.preloadSprite(this, SpriteKey.SQUARE)
         PreloadHelper.preloadSprite(this, SpriteKey.GRADIENT)
+        PreloadHelper.preloadSprite(this, SpriteKey.GEM)
         PreloadHelper.preloadSprite(this, SpriteKey.BALL_DEFAULT)
         PreloadHelper.preloadSprite(this, SpriteKey.BUTTON_BLUE_IDLE)
         PreloadHelper.preloadSprite(this, SpriteKey.BUTTON_BLUE_CLICKED)
@@ -50,8 +51,6 @@ class PlayScene extends Phaser.Scene
         })
 
         this.stateMachine.configure(PlayState.LOSE).onEntry(-1, this.handleLoseEntry.bind(this))
-
-        new Button<PlayScene>(this, SpriteKey.BUTTON_BLUE_IDLE, SpriteKey.BUTTON_BLUE_IDLE, SpriteKey.BUTTON_BLUE_CLICKED).setPosition(100, 100)
     }
 
     private handleLoseEntry(): void {

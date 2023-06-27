@@ -4,6 +4,7 @@ import GameObjectType from "../../configs/GameObjectType"
 import SpriteKey from "../../configs/SpriteKey"
 import {PlatformChildType, PlatformComponent} from "./PlatformComponent"
 import Constants from "../../configs/Constants"
+import Gem from "./Gem"
 
 class Platform extends Phaser.GameObjects.GameObject
 {
@@ -16,6 +17,8 @@ class Platform extends Phaser.GameObjects.GameObject
     private platformRight: PlatformComponent
 
     private gradientColumn: Phaser.GameObjects.Image
+
+    private gem: Gem
 
     constructor(scene: PlayScene) {
         super(scene, GameObjectType.PLATFORM_PARENT)
@@ -39,6 +42,12 @@ class Platform extends Phaser.GameObjects.GameObject
         this.platformLeft.setup(xPosition, yPosition, width)
         this.platformRight.setup(xPosition, yPosition, width)
         this.platformMiddle.setup(xPosition, yPosition, width)
+
+        if (Math.random() < 0.9)
+        {
+            if (!this.gem || !this.gem.body) this.gem = new Gem(this.playScene)
+            this.gem.setPosition(xPosition, yPosition - 25)
+        }
     }
 
     public removeBody(): void {
