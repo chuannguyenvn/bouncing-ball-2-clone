@@ -1,4 +1,4 @@
-﻿import Phaser from "phaser"
+import Phaser from "phaser"
 import SceneKey from "../configs/SceneKey"
 import SpriteKey from "../configs/SpriteKey"
 import Ball from "../objects/play/Ball"
@@ -50,7 +50,11 @@ class PlayScene extends Phaser.Scene
         this.cameras.main.setBounds(-1000, 0, 100000, 0)
 
         this.stateMachine.configure(PlayState.LOSE).onEntry(-1, this.handleLoseEntry.bind(this))
-        this.input.on(POINTER_DOWN, () => this.stateMachine.changeState(PlayState.MOVING))
+
+        this.input.on(POINTER_DOWN, () => this.startPlay())
+
+        const spaceBar = this.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)
+        spaceBar?.on(Phaser.Input.Keyboard.Events.DOWN, () => this.startPlay())
 
         this.stateMachine.configure(PlayState.MOVING).onEntry(-1, () => this.tweens.add({
             targets: this.cameras.main.followOffset,
@@ -88,6 +92,12 @@ class PlayScene extends Phaser.Scene
             localStorage.setItem(Constants.GEMS_COLLECTED_STORAGE_KEY, '0')
         const currentGems = parseInt(localStorage.getItem(Constants.GEMS_COLLECTED_STORAGE_KEY) as string)
         localStorage.setItem(Constants.GEMS_COLLECTED_STORAGE_KEY, (currentGems + this.collectedGems).toString())
+    }
+
+    private startPlay(): void {
+        if (this.startedPlaying) return
+        this.stateMachine.changeState(PlayState.MOVING)
+        this.startedPlaying = true
     }
 }
 

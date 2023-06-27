@@ -6,9 +6,9 @@ import {BodyType} from "matter"
 import GameObjectType from "../../configs/GameObjectType"
 import PlayState from "../../states/PlayState"
 import {PlatformComponent} from "./PlatformComponent"
+import Gem from "./Gem"
 import CollisionStartEvent = Phaser.Physics.Matter.Events.CollisionStartEvent
 import Tween = Phaser.Tweens.Tween
-import Gem from "./Gem"
 
 class Ball extends Phaser.Physics.Matter.Sprite
 {
@@ -28,15 +28,15 @@ class Ball extends Phaser.Physics.Matter.Sprite
         this.setFriction(0, 0, 0)
         this.setStatic(true)
 
-        scene.matter.world.on(
+        this.playScene.matter.world.on(
             Phaser.Physics.Matter.Events.COLLISION_START,
             (event: CollisionStartEvent, bodyA: BodyType, bodyB: BodyType) => {
                 if (bodyB.gameObject && (bodyB.gameObject.type === GameObjectType.PLATFORM_MIDDLE || bodyB.gameObject.type === GameObjectType.PLATFORM_SIDE))
                 {
                     if (bodyB.gameObject.type === GameObjectType.PLATFORM_MIDDLE)
-                        scene.addScore(2)
+                        this.playScene.addScore(2)
                     else
-                        scene.addScore(1)
+                        this.playScene.addScore(1)
 
                     if (this.velocityTween) this.velocityTween.stop()
 
@@ -46,7 +46,7 @@ class Ball extends Phaser.Physics.Matter.Sprite
 
                     platformComponent.glow()
                     platformComponent.platformParent.removeBody()
-                    scene.time.addEvent({
+                    this.playScene.time.addEvent({
                         delay: 5, callback: () => {
                             this.setVelocity(Constants.BALL_X_VELOCITY, -7)
                             this.setAngularVelocity(0.2)
@@ -61,25 +61,30 @@ class Ball extends Phaser.Physics.Matter.Sprite
                 else
                 {
                     this.playScene.stateMachine.changeState(PlayState.LOSE)
-                    scene.matter.world.setBounds(0, 0, 0, 0)
+                    this.playScene.matter.world.setBounds(0, 0, 0, 0)
                 }
             })
 
-        scene.input.on(Phaser.Input.Events.POINTER_DOWN, () => {
-            if (this.velocityTween) this.velocityTween.stop()
+        this.playScene.input.on(Phaser.Input.Events.POINTER_DOWN, () => this.thrustDown())
 
-            this.velocityTween = this.playScene.tweens.addCounter({
-                from: this.getVelocity().y,
-                to: 12,
-                ease: 'expo.out',
-                duration: 1000,
-                onUpdate: (tween) => {
-                    this.setVelocityY(tween.getValue())
-                }
-            })
-        })
+        const spaceBar = this.playScene.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)
+        spaceBar?.on(Phaser.Input.Keyboard.Events.DOWN, () => this.thrustDown())
 
         this.playScene.stateMachine.configure(PlayState.MOVING).onEntry(-1, () => this.setStatic(false))
+    }
+
+    private thrustDown(): void {
+        if (this.velocityTween) this.velocityTween.stop()
+
+        this.velocityTween = this.playScene.tweens.addCounter({
+            from: this.getVelocity().y,
+            to: 12,
+            ease: 'expo.out',
+            duration: 1000,
+            onUpdate: (tween) => {
+                this.setVelocityY(tween.getValue())
+            }
+        })
     }
 }
 
