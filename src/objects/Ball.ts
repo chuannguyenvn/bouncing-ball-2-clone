@@ -6,18 +6,21 @@ import IUpdatable from "../interfaces/IUpdatable"
 import {BodyType} from "matter"
 import GameObjectType from "../configs/GameObjectType"
 import PlayState from "../states/PlayState"
+import {GameEvent} from "../utilities/Event"
+import Platform from "./Platform"
 import CollisionStartEvent = Phaser.Physics.Matter.Events.CollisionStartEvent
 
 class Ball extends Phaser.Physics.Matter.Sprite implements IUpdatable
 {
+    public touchedPlatform: GameEvent = new GameEvent()
     private playScene: PlayScene
-    
+
     constructor(scene: PlayScene) {
         super(scene.matter.world, 0, 0, SpriteKey.BALL_DEFAULT)
         this.scene.add.existing(this)
         scene.registerUpdatable(this)
         this.playScene = scene
-        
+
         this.type = GameObjectType.BALL
 
         this.setDisplaySize(Constants.BALL_SPRITE_RADIUS * 2, Constants.BALL_SPRITE_RADIUS * 2)
@@ -26,12 +29,17 @@ class Ball extends Phaser.Physics.Matter.Sprite implements IUpdatable
         scene.matter.world.on(
             Phaser.Physics.Matter.Events.COLLISION_START,
             (event: CollisionStartEvent, bodyA: BodyType, bodyB: BodyType) => {
-                console.log(bodyB)
                 if (bodyB.gameObject.type === GameObjectType.PLATFORM)
+                {
                     this.setVelocity(10, -10)
+                    this.touchedPlatform.invoke()
+
+                    const index = (bodyB.gameObject as Platform).index
+                    this.playScene.platformSpawner.touchedPlatformIndex.invoke(index)
+                }
                 else
                 {
-                    console.log("Lose")
+                    this.playScene.stateMachine.changeState(PlayState.LOSE)
                 }
             })
 
@@ -41,7 +49,7 @@ class Ball extends Phaser.Physics.Matter.Sprite implements IUpdatable
     }
 
     public update(time: number, delta: number): void {
-        if (this.y > 400) this.playScene.stateMachine.changeState(PlayState.LOSE)
+        if (this.y > 800) this.playScene.stateMachine.changeState(PlayState.LOSE)
     }
 }
 

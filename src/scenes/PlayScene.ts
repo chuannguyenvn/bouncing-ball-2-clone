@@ -3,15 +3,18 @@ import SceneKey from "../configs/SceneKey"
 import SpriteKey from "../configs/SpriteKey"
 import Ball from "../objects/Ball"
 import PreloadHelper from "../utilities/PreloadHelper"
-import Platform from "../objects/Platform"
 import IUpdatable from "../interfaces/IUpdatable"
 import StateMachine from "../utilities/StateMachine"
 import PlayState from "../states/PlayState"
+import PlatformSpawner from "../objects/PlatformSpawner"
 
 class PlayScene extends Phaser.Scene
 {
     public stateMachine: StateMachine<PlayState> = new StateMachine<PlayState>(PlayState.INIT)
+
     private updatables: IUpdatable[] = []
+    public ball: Ball
+    public platformSpawner: PlatformSpawner
 
     constructor() {
         super({
@@ -25,10 +28,10 @@ class PlayScene extends Phaser.Scene
     }
 
     create(): void {
-        const ball = new Ball(this)
-        new Platform(this, 100, 400)
-        this.cameras.main.startFollow(ball, false, 1, 0)
-        this.cameras.main.setBounds(0, 0, 100000, 0)
+        this.ball = new Ball(this)
+        this.platformSpawner = new PlatformSpawner(this)
+        this.cameras.main.startFollow(this.ball, false, 1, 0)
+        this.cameras.main.setBounds(-1000, 0, 100000, 0)
         this.tweens.add({
             targets: this.cameras.main.followOffset,
             x: -200,
