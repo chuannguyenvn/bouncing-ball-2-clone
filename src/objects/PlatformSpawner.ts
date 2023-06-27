@@ -10,6 +10,7 @@ class PlatformSpawner
     private platforms: Platform[] = []
     private currentPlatformIndex: number = 0
     private farthestPlatformXPosition: number = -200
+    private currentWidth: number = 100
 
     constructor(scene: PlayScene) {
         for (let i = 0; i < Constants.PLATFORM_POOL_SIZE; i++)
@@ -30,13 +31,15 @@ class PlatformSpawner
             {
                 this.placeNextPlatform()
             }
+
+            this.currentWidth = Math.max(this.currentWidth - 10, 20)
         })
     }
 
     public placeNextPlatform() {
         this.currentPlatformIndex = (this.currentPlatformIndex + 1) % Constants.PLATFORM_POOL_SIZE
         const platform = this.platforms[this.currentPlatformIndex]
-        platform.setup(100, this.farthestPlatformXPosition + 200, 600)
+        platform.setup(this.currentWidth, this.farthestPlatformXPosition + 200 + (Math.random() * 2 - 1) * 5, Math.random() * 200 + 500)
         this.farthestPlatformXPosition += 200
     }
 }
