@@ -81,7 +81,6 @@ class PlayScene extends Phaser.Scene
         const highScore = parseInt(localStorage.getItem(Constants.HIGH_SCORE_STORAGE_KEY) as string)
         if (this.currentScore > highScore)
             localStorage.setItem(Constants.HIGH_SCORE_STORAGE_KEY, this.currentScore.toString())
-
     }
 
     private handleGemsCollected(): void {
@@ -89,7 +88,6 @@ class PlayScene extends Phaser.Scene
             localStorage.setItem(Constants.GEMS_COLLECTED_STORAGE_KEY, '0')
         const currentGems = parseInt(localStorage.getItem(Constants.GEMS_COLLECTED_STORAGE_KEY) as string)
         localStorage.setItem(Constants.GEMS_COLLECTED_STORAGE_KEY, (currentGems + this.collectedGems).toString())
-
     }
 }
 
