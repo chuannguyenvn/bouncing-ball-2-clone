@@ -1,8 +1,8 @@
 ﻿import Phaser from "phaser"
-import PlayScene from "../scenes/PlayScene"
-import SpriteKey from "../configs/SpriteKey"
-import GameObjectType from "../configs/GameObjectType"
-import Constants from "../configs/Constants"
+import PlayScene from "../../scenes/PlayScene"
+import SpriteKey from "../../configs/SpriteKey"
+import GameObjectType from "../../configs/GameObjectType"
+import Constants from "../../configs/Constants"
 import Platform from "./Platform"
 
 class PlatformComponent extends Phaser.Physics.Matter.Image

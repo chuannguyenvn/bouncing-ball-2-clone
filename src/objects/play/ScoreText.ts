@@ -1,4 +1,4 @@
-﻿import PlayScene from "../scenes/PlayScene"
+﻿import PlayScene from "../../scenes/PlayScene"
 
 
 class ScoreText extends Phaser.GameObjects.Text

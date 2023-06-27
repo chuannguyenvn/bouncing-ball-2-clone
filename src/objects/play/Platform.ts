@@ -1,9 +1,9 @@
 ﻿import Phaser from "phaser"
-import PlayScene from "../scenes/PlayScene"
-import GameObjectType from "../configs/GameObjectType"
-import SpriteKey from "../configs/SpriteKey"
+import PlayScene from "../../scenes/PlayScene"
+import GameObjectType from "../../configs/GameObjectType"
+import SpriteKey from "../../configs/SpriteKey"
 import {PlatformChildType, PlatformComponent} from "./PlatformComponent"
-import Constants from "../configs/Constants"
+import Constants from "../../configs/Constants"
 
 class Platform extends Phaser.GameObjects.GameObject
 {

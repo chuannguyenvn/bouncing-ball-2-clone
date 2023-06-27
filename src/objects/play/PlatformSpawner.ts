@@ -1,7 +1,7 @@
 ﻿import Platform from "./Platform"
-import PlayScene from "../scenes/PlayScene"
-import {ParamGameEvent} from "../utilities/Event"
-import Constants from "../configs/Constants"
+import PlayScene from "../../scenes/PlayScene"
+import {ParamGameEvent} from "../../utilities/Event"
+import Constants from "../../configs/Constants"
 
 class PlatformSpawner
 {
