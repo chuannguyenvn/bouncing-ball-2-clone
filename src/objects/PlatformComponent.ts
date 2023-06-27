@@ -28,11 +28,12 @@ class PlatformComponent extends Phaser.Physics.Matter.Image
 
         }
 
-        this.setTint(Constants.PLATFORM_TINT)
         this.setPosition(-10000, 0)
     }
 
     public setup(xPosition: number, yPosition: number, width: number): void {
+        this.setTint(Constants.PLATFORM_TINT)
+
         switch (this.platformChildType)
         {
             case PlatformChildType.LEFT:
@@ -50,6 +51,20 @@ class PlatformComponent extends Phaser.Physics.Matter.Image
                 this.setRectangle(width * Constants.PLATFORM_MIDDLE_PERCENTAGE, Constants.PLATFORM_THICKNESS, {isStatic: true})
                 this.setPosition(xPosition, yPosition)
                 break
+        }
+    }
+    
+    public glow(){
+        switch (this.platformChildType)
+        {
+            case PlatformChildType.LEFT:
+            case PlatformChildType.RIGHT:
+                this.setTint(0xff0000)
+                break
+            case PlatformChildType.MIDDLE:
+                this.setTint(0x00ff00)
+                break
+
         }
     }
 }
