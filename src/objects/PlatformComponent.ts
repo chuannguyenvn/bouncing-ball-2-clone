@@ -47,14 +47,14 @@ class PlatformComponent extends Phaser.Physics.Matter.Image
                 this.setPosition(xPosition + width * (0.5 - (1 - Constants.PLATFORM_MIDDLE_PERCENTAGE) / 4), yPosition)
                 break
             case PlatformChildType.MIDDLE:
-                this.setDisplaySize(width * Constants.PLATFORM_MIDDLE_PERCENTAGE, Constants.PLATFORM_THICKNESS)
-                this.setRectangle(width * Constants.PLATFORM_MIDDLE_PERCENTAGE, Constants.PLATFORM_THICKNESS, {isStatic: true})
+                this.setDisplaySize(width * (Constants.PLATFORM_MIDDLE_PERCENTAGE + 0.01), Constants.PLATFORM_THICKNESS)
+                this.setRectangle(width * (Constants.PLATFORM_MIDDLE_PERCENTAGE + 0.01), Constants.PLATFORM_THICKNESS, {isStatic: true})
                 this.setPosition(xPosition, yPosition)
                 break
         }
     }
-    
-    public glow(){
+
+    public glow() {
         switch (this.platformChildType)
         {
             case PlatformChildType.LEFT:

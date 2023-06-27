@@ -3,6 +3,7 @@ import PlayScene from "../scenes/PlayScene"
 import GameObjectType from "../configs/GameObjectType"
 import SpriteKey from "../configs/SpriteKey"
 import {PlatformChildType, PlatformComponent} from "./PlatformComponent"
+import Constants from "../configs/Constants"
 
 class Platform extends Phaser.GameObjects.GameObject
 {
@@ -33,7 +34,7 @@ class Platform extends Phaser.GameObjects.GameObject
     public setup(xPosition: number, yPosition: number, width: number): void {
         this.gradientColumn.setPosition(xPosition, yPosition)
         this.gradientColumn.setDisplaySize(width, 700 - yPosition)
-        this.gradientColumn.setTint(0x888888)
+        this.gradientColumn.setTint(Constants.GRADIENT_COLUM_DEFAULT_TINT)
 
         this.platformLeft.setup(xPosition, yPosition, width)
         this.platformRight.setup(xPosition, yPosition, width)

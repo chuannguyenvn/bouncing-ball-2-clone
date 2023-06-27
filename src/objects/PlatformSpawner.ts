@@ -52,7 +52,6 @@ class PlatformSpawner
         if (this.farthestPlatformXPosition === -1) xPosition = 0
         platform.setup(xPosition, this.currentHeight, this.currentWidth)
         this.farthestPlatformXPosition = xPosition
-        console.log(this.currentHeight)
     }
 
     private easePlatformHeight(): void {
