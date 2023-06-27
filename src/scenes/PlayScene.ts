@@ -24,6 +24,7 @@ class PlayScene extends Phaser.Scene
 
     preload(): void {
         PreloadHelper.preloadSprite(this, SpriteKey.SQUARE)
+        PreloadHelper.preloadSprite(this, SpriteKey.GRADIENT)
         PreloadHelper.preloadSprite(this, SpriteKey.BALL_DEFAULT)
     }
 

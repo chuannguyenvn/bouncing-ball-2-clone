@@ -4,8 +4,8 @@ import WelcomeScene from "../scenes/WelcomeScene"
 
 const GAME_CONFIG: Phaser.Types.Core.GameConfig = {
     title: 'Bouncing Ball 2',
-    width: 540,
-    height: 960,
+    width: 450,
+    height: 800,
     parent: 'game',
     // scale: {
     //     mode: Phaser.Scale.RESIZE,
