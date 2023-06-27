@@ -13,7 +13,7 @@ class ScoreText extends Phaser.GameObjects.Text
         this.setScrollFactor(0)
         this.setOrigin(0.5)
 
-        this.playScene.scoreChanged.subscribe((_) => this.text = this.playScene.currentScore.toString())
+        this.playScene.scoreChanged.subscribe((score) => this.text = score.toString())
     }
 }
 

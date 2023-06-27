@@ -1,4 +1,4 @@
-import Phaser from "phaser"
+﻿import Phaser from "phaser"
 import SceneKey from "../configs/SceneKey"
 import SpriteKey from "../configs/SpriteKey"
 import Ball from "../objects/play/Ball"
@@ -17,12 +17,14 @@ class PlayScene extends Phaser.Scene
     public stateMachine: StateMachine<PlayState> = new StateMachine<PlayState>(PlayState.INIT)
     public scoreChanged: ParamGameEvent<number> = new ParamGameEvent<number>()
 
-    public currentScore: number = 0
+    public currentScore: number = -2
     public collectedGems: number = 0
 
     public ball: Ball
     public platformSpawner: PlatformSpawner
     public scoreText: ScoreText
+
+    private startedPlaying: boolean = false
 
     constructor() {
         super({
