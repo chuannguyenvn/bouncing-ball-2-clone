@@ -62,8 +62,8 @@ class PlayScene extends Phaser.Scene
 
     public addScore(amount: number): void {
         this.currentScore += amount
+        this.cameras.main.shake(Constants.SCREENSHAKE_DURATION, new Vector2(0, Constants.SCREENSHAKE_STRENGTH))
         this.scoreChanged.invoke(this.currentScore)
-        this.cameras.main.shake(Constants.SCREENSHAKE_DURATION, new Vector2(Constants.SCREENSHAKE_STRENGTH, Constants.SCREENSHAKE_STRENGTH))
     }
 
     private handleLoseEntry(): void {
