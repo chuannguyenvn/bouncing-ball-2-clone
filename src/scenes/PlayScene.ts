@@ -10,6 +10,7 @@ import ScoreText from "../objects/play/ScoreText"
 import {ParamGameEvent} from "../utilities/Event"
 import Constants from "../configs/Constants"
 import POINTER_DOWN = Phaser.Input.Events.POINTER_DOWN
+import Vector2 = Phaser.Math.Vector2
 
 class PlayScene extends Phaser.Scene
 {
@@ -41,7 +42,7 @@ class PlayScene extends Phaser.Scene
     create(): void {
         this.ball = new Ball(this)
         this.ball.y = 300
-        
+
         this.platformSpawner = new PlatformSpawner(this)
         this.scoreText = new ScoreText(this)
         this.matter.world.setBounds(0, 0, 100000, this.scale.height, 64, false, false, false)
@@ -50,7 +51,7 @@ class PlayScene extends Phaser.Scene
 
         this.stateMachine.configure(PlayState.LOSE).onEntry(-1, this.handleLoseEntry.bind(this))
         this.input.on(POINTER_DOWN, () => this.stateMachine.changeState(PlayState.MOVING))
-        
+
         this.stateMachine.configure(PlayState.MOVING).onEntry(-1, () => this.tweens.add({
             targets: this.cameras.main.followOffset,
             x: -100,
@@ -64,13 +65,14 @@ class PlayScene extends Phaser.Scene
 
         this.handleHighScore()
         this.handleGemsCollected()
-        
+
         console.log("Lose")
     }
 
     public addScore(amount: number): void {
         this.currentScore += amount
         this.scoreChanged.invoke(this.currentScore)
+        this.cameras.main.shake(Constants.SCREENSHAKE_DURATION, new Vector2(Constants.SCREENSHAKE_STRENGTH, Constants.SCREENSHAKE_STRENGTH))
     }
 
     private handleHighScore(): void {

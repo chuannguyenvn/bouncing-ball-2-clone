@@ -8,6 +8,8 @@
     PLATFORM_MIDDLE_PERCENTAGE: 0.60,
     HIGH_SCORE_STORAGE_KEY: 'high-score',
     GEMS_COLLECTED_STORAGE_KEY: 'gems-collected',
+    SCREENSHAKE_DURATION: 100,
+    SCREENSHAKE_STRENGTH: 0.0075,
 }
 
 export default Constants

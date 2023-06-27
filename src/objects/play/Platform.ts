@@ -54,6 +54,13 @@ class Platform extends Phaser.GameObjects.GameObject
         this.playScene.matter.world.remove(this.platformLeft.body as object)
         this.playScene.matter.world.remove(this.platformRight.body as object)
         this.playScene.matter.world.remove(this.platformMiddle.body as object)
+        
+        this.playScene.tweens.add({
+            targets: [this.platformLeft, this.platformMiddle, this.platformRight, this.gradientColumn], 
+            y: 1200,
+            duration: 400,
+            ease: 'Linear'
+        })
     }
 }
 
