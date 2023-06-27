@@ -35,7 +35,7 @@ class PlayScene extends Phaser.Scene
         this.cameras.main.setBounds(-1000, 0, 100000, 0)
         this.tweens.add({
             targets: this.cameras.main.followOffset,
-            x: -200,
+            x: -100,
             duration: 1000,
             ease: 'quart.out',
         })

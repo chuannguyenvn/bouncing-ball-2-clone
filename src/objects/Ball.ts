@@ -24,8 +24,8 @@ class Ball extends Phaser.Physics.Matter.Sprite implements IUpdatable
 
         this.type = GameObjectType.BALL
 
-        this.setDisplaySize(Constants.BALL_SPRITE_RADIUS * 2, Constants.BALL_SPRITE_RADIUS * 2)
-        this.setCircle(Constants.BALL_SPRITE_RADIUS)
+        this.setDisplaySize(Constants.BALL_RADIUS * 2, Constants.BALL_RADIUS * 2)
+        this.setCircle(Constants.BALL_RADIUS)
 
         scene.matter.world.on(
             Phaser.Physics.Matter.Events.COLLISION_START,
@@ -38,6 +38,7 @@ class Ball extends Phaser.Physics.Matter.Sprite implements IUpdatable
                     const index =platformComponent .platformParent.index
                     this.playScene.platformSpawner.touchedPlatformIndex.invoke(index)
                     
+                    platformComponent.glow()
                     platformComponent.platformParent.removeBody()
                     scene.time.addEvent({
                         delay: 5, callback: () => {
