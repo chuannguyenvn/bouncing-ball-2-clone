@@ -30,7 +30,7 @@ class PlayScene extends Phaser.Scene
         this.ball = new Ball(this)
         this.platformSpawner = new PlatformSpawner(this)
         this.matter.world.setBounds(0, 0, 100000, this.scale.height, 64, false, false, false)
-        this.cameras.main.startFollow(this.ball, false, 1, 0)
+        this.cameras.main.startFollow(this.ball, false, 0.9, 0)
         this.cameras.main.setBounds(-1000, 0, 100000, 0)
         this.tweens.add({
             targets: this.cameras.main.followOffset,
