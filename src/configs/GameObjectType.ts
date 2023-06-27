@@ -1,7 +1,8 @@
 ﻿enum GameObjectType
 {
     BALL = 'ball',
-    PLATFORM = 'platform',
+    PLATFORM_MIDDLE = 'platform-middle',
+    PLATFORM_SIDE = 'platform-side'
 }
 
 export default GameObjectType

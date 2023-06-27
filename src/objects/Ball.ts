@@ -29,7 +29,7 @@ class Ball extends Phaser.Physics.Matter.Sprite implements IUpdatable
         scene.matter.world.on(
             Phaser.Physics.Matter.Events.COLLISION_START,
             (event: CollisionStartEvent, bodyA: BodyType, bodyB: BodyType) => {
-                if (bodyB.gameObject.type === GameObjectType.PLATFORM)
+                if (bodyB.gameObject.type === GameObjectType.PLATFORM_MIDDLE)
                 {
                     this.touchedPlatform.invoke()
 
