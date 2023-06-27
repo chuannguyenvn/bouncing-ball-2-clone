@@ -9,6 +9,7 @@ import PlayState from "../states/PlayState"
 import {GameEvent} from "../utilities/Event"
 import Platform from "./Platform"
 import CollisionStartEvent = Phaser.Physics.Matter.Events.CollisionStartEvent
+import {PlatformComponent} from "./PlatformComponent"
 
 class Ball extends Phaser.Physics.Matter.Sprite implements IUpdatable
 {
@@ -29,14 +30,15 @@ class Ball extends Phaser.Physics.Matter.Sprite implements IUpdatable
         scene.matter.world.on(
             Phaser.Physics.Matter.Events.COLLISION_START,
             (event: CollisionStartEvent, bodyA: BodyType, bodyB: BodyType) => {
-                if (bodyB.gameObject.type === GameObjectType.PLATFORM_MIDDLE)
+                if (bodyB.gameObject.type === GameObjectType.PLATFORM_MIDDLE || bodyB.gameObject.type === GameObjectType.PLATFORM_SIDE)
                 {
                     this.touchedPlatform.invoke()
 
-                    const index = (bodyB.gameObject as Platform).index
+                    const platformComponent = (bodyB.gameObject as PlatformComponent)
+                    const index =platformComponent .platformParent.index
                     this.playScene.platformSpawner.touchedPlatformIndex.invoke(index)
-
-                    scene.matter.world.remove((bodyB.gameObject as Platform).body as object)
+                    
+                    platformComponent.platformParent.removeBody()
                     scene.time.addEvent({
                         delay: 5, callback: () => {
                             this.setVelocity(10, -10)

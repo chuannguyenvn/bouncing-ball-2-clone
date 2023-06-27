@@ -24,6 +24,8 @@ class PlatformSpawner
         this.placeNextPlatform()
         this.placeNextPlatform()
         this.placeNextPlatform()
+        this.placeNextPlatform()
+        this.placeNextPlatform()
 
         this.touchedPlatformIndex.subscribe((index) => {
             const moveUntilIndex = (index - 5 + Constants.PLATFORM_POOL_SIZE) % Constants.PLATFORM_POOL_SIZE
@@ -39,7 +41,7 @@ class PlatformSpawner
     public placeNextPlatform() {
         this.currentPlatformIndex = (this.currentPlatformIndex + 1) % Constants.PLATFORM_POOL_SIZE
         const platform = this.platforms[this.currentPlatformIndex]
-        platform.setup(this.currentWidth, this.farthestPlatformXPosition + 200 + (Math.random() * 2 - 1) * 5, Math.random() * 200 + 500)
+        platform.setup(this.farthestPlatformXPosition + 200 + (Math.random() * 2 - 1) * 5, Math.random() * 200 + 500, this.currentWidth)
         this.farthestPlatformXPosition += 200
     }
 }
