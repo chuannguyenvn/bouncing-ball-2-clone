@@ -3,7 +3,6 @@ import SceneKey from "../configs/SceneKey"
 import SpriteKey from "../configs/SpriteKey"
 import Ball from "../objects/Ball"
 import PreloadHelper from "../utilities/PreloadHelper"
-import IUpdatable from "../interfaces/IUpdatable"
 import StateMachine from "../utilities/StateMachine"
 import PlayState from "../states/PlayState"
 import PlatformSpawner from "../objects/PlatformSpawner"
@@ -12,7 +11,6 @@ class PlayScene extends Phaser.Scene
 {
     public stateMachine: StateMachine<PlayState> = new StateMachine<PlayState>(PlayState.INIT)
 
-    private updatables: IUpdatable[] = []
     public ball: Ball
     public platformSpawner: PlatformSpawner
 
@@ -31,6 +29,7 @@ class PlayScene extends Phaser.Scene
     create(): void {
         this.ball = new Ball(this)
         this.platformSpawner = new PlatformSpawner(this)
+        this.matter.world.setBounds(0, 0, 100000, this.scale.height, 64, false, false, false)
         this.cameras.main.startFollow(this.ball, false, 1, 0)
         this.cameras.main.setBounds(-1000, 0, 100000, 0)
         this.tweens.add({
@@ -41,14 +40,6 @@ class PlayScene extends Phaser.Scene
         })
 
         this.stateMachine.configure(PlayState.LOSE).onEntry(-1, this.handleLoseEntry.bind(this))
-    }
-
-    update(time: number, delta: number) {
-        this.updatables.forEach(updatable => updatable.update(time, delta))
-    }
-
-    public registerUpdatable(updatable: IUpdatable) {
-        this.updatables.push(updatable)
     }
 
     private handleLoseEntry(): void {
