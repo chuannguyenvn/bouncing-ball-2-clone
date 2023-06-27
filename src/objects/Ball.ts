@@ -5,14 +5,12 @@ import PlayScene from "../scenes/PlayScene"
 import {BodyType} from "matter"
 import GameObjectType from "../configs/GameObjectType"
 import PlayState from "../states/PlayState"
-import {GameEvent} from "../utilities/Event"
 import {PlatformComponent} from "./PlatformComponent"
 import CollisionStartEvent = Phaser.Physics.Matter.Events.CollisionStartEvent
 import Tween = Phaser.Tweens.Tween
 
 class Ball extends Phaser.Physics.Matter.Sprite
 {
-    public touchedPlatform: GameEvent = new GameEvent()
     private playScene: PlayScene
     private velocityTween: Tween
 
@@ -33,7 +31,11 @@ class Ball extends Phaser.Physics.Matter.Sprite
             (event: CollisionStartEvent, bodyA: BodyType, bodyB: BodyType) => {
                 if (bodyB.gameObject && (bodyB.gameObject.type === GameObjectType.PLATFORM_MIDDLE || bodyB.gameObject.type === GameObjectType.PLATFORM_SIDE))
                 {
-                    this.touchedPlatform.invoke()
+                    if (bodyB.gameObject.type === GameObjectType.PLATFORM_MIDDLE)
+                        scene.addScore(2)
+                    else
+                        scene.addScore(1)
+                    
                     if (this.velocityTween) this.velocityTween.stop()
 
                     const platformComponent = (bodyB.gameObject as PlatformComponent)
