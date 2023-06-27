@@ -53,6 +53,7 @@ class Ball extends Phaser.Physics.Matter.Sprite
                 }
                 else if (bodyB.gameObject && bodyB.gameObject.type === GameObjectType.GEM)
                 {
+                    this.playScene.collectedGems++
                     bodyB.gameObject.destroy()
                 }
                 else

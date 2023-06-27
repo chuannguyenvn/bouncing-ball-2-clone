@@ -6,6 +6,8 @@
     GRADIENT_COLUM_DEFAULT_TINT: 0xced6e3,
     PLATFORM_POOL_SIZE: 10,
     PLATFORM_MIDDLE_PERCENTAGE: 0.60,
+    HIGH_SCORE_STORAGE_KEY: 'high-score',
+    GEMS_COLLECTED_STORAGE_KEY: 'gems-collected',
 }
 
 export default Constants

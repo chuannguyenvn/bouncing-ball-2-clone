@@ -8,7 +8,7 @@ import PlayState from "../states/PlayState"
 import PlatformSpawner from "../objects/play/PlatformSpawner"
 import ScoreText from "../objects/play/ScoreText"
 import {ParamGameEvent} from "../utilities/Event"
-import Button from "../objects/welcome/Button"
+import Constants from "../configs/Constants"
 
 class PlayScene extends Phaser.Scene
 {
@@ -16,6 +16,7 @@ class PlayScene extends Phaser.Scene
     public scoreChanged: ParamGameEvent<number> = new ParamGameEvent<number>()
 
     public currentScore: number = 0
+    public collectedGems: number = 0
 
     public ball: Ball
     public platformSpawner: PlatformSpawner
@@ -55,12 +56,33 @@ class PlayScene extends Phaser.Scene
 
     private handleLoseEntry(): void {
         this.cameras.main.stopFollow()
+
+        this.handleHighScore()
+        this.handleGemsCollected()
+        
         console.log("Lose")
     }
 
     public addScore(amount: number): void {
         this.currentScore += amount
         this.scoreChanged.invoke(this.currentScore)
+    }
+
+    private handleHighScore(): void {
+        if (!localStorage.getItem(Constants.HIGH_SCORE_STORAGE_KEY))
+            localStorage.setItem(Constants.HIGH_SCORE_STORAGE_KEY, '0')
+        const highScore = parseInt(localStorage.getItem(Constants.HIGH_SCORE_STORAGE_KEY) as string)
+        if (this.currentScore > highScore)
+            localStorage.setItem(Constants.HIGH_SCORE_STORAGE_KEY, this.currentScore.toString())
+
+    }
+
+    private handleGemsCollected(): void {
+        if (!localStorage.getItem(Constants.GEMS_COLLECTED_STORAGE_KEY))
+            localStorage.setItem(Constants.GEMS_COLLECTED_STORAGE_KEY, '0')
+        const currentGems = parseInt(localStorage.getItem(Constants.GEMS_COLLECTED_STORAGE_KEY) as string)
+        localStorage.setItem(Constants.GEMS_COLLECTED_STORAGE_KEY, (currentGems + this.collectedGems).toString())
+
     }
 }
 
