@@ -33,6 +33,25 @@ class SplashScene extends Scene
         this.exitLoading()
     }
 
+    public exitLoading(): void {
+        this.tweens.add({
+            targets: this.ballImage,
+            y: Constants.BALL_START_POSITION.y,
+            displayHeight: Constants.BALL_RADIUS * 2,
+            displayWidth: Constants.BALL_RADIUS * 2,
+            duration: 500,
+            ease: 'Sine.inout',
+            onComplete: () => GameManager.stateMachine.changeState(GameState.PLAY)
+        })
+
+        this.tweens.add({
+            targets: this.progressBar,
+            alpha: 0,
+            duration: 200,
+            ease: 'Sine.inout',
+        })
+    }
+
     private loadAssets(): void {
         PreloadHelper.preloadSprite(this, SpriteKey.SQUARE)
         PreloadHelper.preloadSprite(this, SpriteKey.GRADIENT)
@@ -57,25 +76,6 @@ class SplashScene extends Scene
             this.progressBar.fillStyle(0x333333, 1)
             this.progressBar.fillRect(this.scale.width / 2 - 30, this.scale.height / 2 + 60, 60 * value, 5)
             this.ballImage.setRotation(value * Phaser.Math.PI2 * 2)
-        })
-    }
-
-    public exitLoading(): void {
-        this.tweens.add({
-            targets: this.ballImage,
-            y: Constants.BALL_START_POSITION.y,
-            displayHeight: Constants.BALL_RADIUS * 2,
-            displayWidth: Constants.BALL_RADIUS * 2,
-            duration: 500,
-            ease: 'Sine.inout',
-            onComplete: () => GameManager.stateMachine.changeState(GameState.PLAY)
-        })
-
-        this.tweens.add({
-            targets: this.progressBar,
-            alpha: 0,
-            duration: 200,
-            ease: 'Sine.inout',
         })
     }
 }

@@ -4,11 +4,11 @@ import ShopScene from "../../scenes/ShopScene"
 
 class ShopItem extends Phaser.Physics.Matter.Image
 {
+    public readonly price: number
     private shopScene: ShopScene
     private spriteKey: SpriteKey
-    public readonly price: number
     private isPurchased: boolean
-    
+
     constructor(scene: ShopScene, spriteKey: SpriteKey, price: number) {
         super(scene.matter.world, 0, 0, spriteKey)
         this.shopScene = scene
@@ -19,7 +19,7 @@ class ShopItem extends Phaser.Physics.Matter.Image
         this.isPurchased = localStorage.getItem(this.spriteKey) as string === 'yes'
 
         this.price = price
-        
+
         this.setStatic(!this.isPurchased)
     }
 

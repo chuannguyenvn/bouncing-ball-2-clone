@@ -12,7 +12,7 @@ class VisitShopButton extends Button<PlayScene>
         this.playScene = scene
 
         this.setPosition(100, 100)
-        
+
         this.on(GAMEOBJECT_POINTER_UP, () => {
             this.playScene.visitShop()
         })

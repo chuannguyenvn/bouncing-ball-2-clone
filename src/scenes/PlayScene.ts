@@ -72,6 +72,17 @@ class PlayScene extends Phaser.Scene
         this.scoreChanged.invoke(this.currentScore)
     }
 
+    public visitShop() {
+        this.cameras.main.stopFollow()
+        this.cameras.main.pan(-1000, this.scale.height / 2, 1000, Phaser.Math.Easing.Sine.InOut, false, (_, progress) => {
+            if (progress === 1)
+            {
+                this.scene.stop()
+                this.scene.start(SceneKey.SHOP)
+            }
+        })
+    }
+
     private handleLoseEntry(): void {
         this.cameras.main.stopFollow()
 
@@ -102,17 +113,6 @@ class PlayScene extends Phaser.Scene
         if (this.startedPlaying) return
         this.stateMachine.changeState(PlayState.MOVING)
         this.startedPlaying = true
-    }
-
-    public visitShop() {
-        this.cameras.main.stopFollow()
-        this.cameras.main.pan(-1000, this.scale.height / 2, 1000, Phaser.Math.Easing.Sine.InOut, false, (_, progress) => {
-            if (progress === 1)
-            {
-                this.scene.stop()
-                this.scene.start(SceneKey.SHOP)
-            }
-        })
     }
 }
 

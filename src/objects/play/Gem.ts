@@ -13,7 +13,7 @@ class Gem extends Phaser.Physics.Matter.Image
         super(scene.matter.world, -100, -100, SpriteKey.GEM)
         this.scene.add.existing(this)
         this.playScene = scene
-        
+
         this.platformParent = platformParent
         this.type = GameObjectType.GEM
 
