@@ -34,9 +34,14 @@ class Ball extends Phaser.Physics.Matter.Sprite
                 if (bodyB.gameObject && (bodyB.gameObject.type === GameObjectType.PLATFORM_MIDDLE || bodyB.gameObject.type === GameObjectType.PLATFORM_SIDE))
                 {
                     if (bodyB.gameObject.type === GameObjectType.PLATFORM_MIDDLE)
+                    {
                         this.playScene.addScore(2)
+                        this.playScene.background.flashColor(0xbbffbb)
+                    }
                     else
+                    {
                         this.playScene.addScore(1)
+                    }
 
                     if (this.velocityTween) this.velocityTween.stop()
 
@@ -70,7 +75,9 @@ class Ball extends Phaser.Physics.Matter.Sprite
         const spaceBar = this.playScene.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)
         spaceBar?.on(Phaser.Input.Keyboard.Events.DOWN, () => this.thrustDown())
 
-        this.playScene.stateMachine.configure(PlayState.MOVING).onEntry(-1, () => this.setStatic(false))
+        this.playScene.stateMachine.configure(PlayState.MOVING).onEntry(-1, () => {
+            this.setStatic(false)
+        })
     }
 
     private thrustDown(): void {

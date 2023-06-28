@@ -4,6 +4,7 @@ import PreloadHelper from "../utilities/PreloadHelper"
 import SpriteKey from "../configs/SpriteKey"
 import Constants from "../configs/Constants"
 import {GameManager, GameState} from "../managers/GameManager"
+import FileLookUp from "../configs/FileLookUp"
 
 
 class LoadScene extends Scene
@@ -62,7 +63,7 @@ class LoadScene extends Scene
         PreloadHelper.preloadSprite(this, SpriteKey.BUTTON_BLUE_IDLE)
         PreloadHelper.preloadSprite(this, SpriteKey.BUTTON_BLUE_CLICKED)
 
-        // for (let i = 0; i < 500; i++) this.load.image("logo" + i, FileLookUp[SpriteKey.GEM])
+        for (let i = 0; i < 500; i++) this.load.image("logo" + i, FileLookUp[SpriteKey.GEM])
     }
 
     private showLoadingProgress(): void {

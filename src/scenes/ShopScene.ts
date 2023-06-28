@@ -40,8 +40,6 @@ class ShopScene extends Phaser.Scene
         this.matter.world.on(
             Phaser.Physics.Matter.Events.COLLISION_START,
             (event: CollisionStartEvent, bodyA: BodyType, bodyB: BodyType) => {
-                console.log(bodyA)
-                console.log(bodyB)
                 if (bodyA.gameObject && bodyB.gameObject && ((
                     bodyA.gameObject.type === GameObjectType.SHOP_BALL &&
                     bodyB.gameObject.type === GameObjectType.SHOP_CEILING) || (

@@ -18,7 +18,7 @@ class Gem extends Phaser.Physics.Matter.Image
         this.type = GameObjectType.GEM
 
         this.setDisplaySize(25, 25)
-        this.setCircle(25)
+        this.setCircle(15)
         this.setStatic(true)
         this.setSensor(true)
     }

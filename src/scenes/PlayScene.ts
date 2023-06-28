@@ -11,6 +11,7 @@ import VisitShopButton from "../objects/play/VisitShopButton"
 import {GameManager, GameState} from "../managers/GameManager"
 import POINTER_DOWN = Phaser.Input.Events.POINTER_DOWN
 import Vector2 = Phaser.Math.Vector2
+import Background from "../objects/play/Background"
 
 class PlayScene extends Phaser.Scene
 {
@@ -22,8 +23,10 @@ class PlayScene extends Phaser.Scene
 
     public ball: Ball
     public platformSpawner: PlatformSpawner
+    public background: Background
     public scoreText: ScoreText
-
+    private visitShopButton: VisitShopButton
+    
     private startedPlaying: boolean = false
 
     constructor() {
@@ -31,18 +34,27 @@ class PlayScene extends Phaser.Scene
 
         GameManager.stateMachine
             .configure(GameState.PLAY)
-            .onEntry(-1, () => GameManager.sceneManager.start(SceneKey.PLAY))
+            .onEntry(-1, () => {
+                GameManager.sceneManager.start(SceneKey.PLAY)
+            })
 
         GameManager.stateMachine
             .configure(GameState.PLAY)
-            .onExit(-1, () => GameManager.sceneManager.stop(this))
+            .onExit(-1, () => {
+                GameManager.sceneManager.stop(this)
+            })
     }
 
     create(): void {
+        this.startedPlaying = false
+        this.stateMachine.changeState(PlayState.INIT)
+        
         this.ball = new Ball(this)
-
+        
         this.platformSpawner = new PlatformSpawner(this)
         this.scoreText = new ScoreText(this)
+        this.background = new Background(this)
+        
         this.matter.world.setBounds(0, 0, 100000, this.scale.height, 64, false, false, false)
         this.cameras.main.startFollow(this.ball, false, 0.9, 0)
         this.cameras.main.setBounds(-1000, 0, 100000, 0)
@@ -54,14 +66,18 @@ class PlayScene extends Phaser.Scene
         const spaceBar = this.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)
         spaceBar?.on(Phaser.Input.Keyboard.Events.DOWN, () => this.startPlay())
 
-        new VisitShopButton(this)
+        this.visitShopButton = new VisitShopButton(this)
 
-        this.stateMachine.configure(PlayState.MOVING).onEntry(-1, () => this.tweens.add({
-            targets: this.cameras.main.followOffset,
-            x: -100,
-            duration: 400,
-            ease: 'Sine.out',
-        }))
+        this.stateMachine.configure(PlayState.MOVING).onEntry(-1, () => {
+            this.tweens.add({
+                targets: this.cameras.main.followOffset,
+                x: -100,
+                duration: 400,
+                ease: 'Sine.out',
+            })
+            
+            this.visitShopButton.destroy()
+        })
 
         this.tweens.setFps(60)
     }
