@@ -13,12 +13,27 @@ class SplashScene extends Scene
     private ballImage: Phaser.GameObjects.Image
 
     constructor() {
-        super({
-            key: SceneKey.SPLASH
-        })
+        super({key: SceneKey.SPLASH})
+
+        GameManager.stateMachine
+            .configure(GameState.LOADING)
+            .onEntry(-1, () => GameManager.sceneManager.start(SceneKey.SPLASH))
+
+        GameManager.stateMachine
+            .configure(GameState.LOADING)
+            .onExit(-1, () => GameManager.sceneManager.stop(this))
     }
 
     preload(): void {
+        this.loadAssets()
+        this.showLoadingProgress()
+    }
+
+    create(): void {
+        this.exitLoading()
+    }
+
+    private loadAssets(): void {
         PreloadHelper.preloadSprite(this, SpriteKey.SQUARE)
         PreloadHelper.preloadSprite(this, SpriteKey.GRADIENT)
         PreloadHelper.preloadSprite(this, SpriteKey.GEM)
@@ -28,7 +43,9 @@ class SplashScene extends Scene
         PreloadHelper.preloadSprite(this, SpriteKey.BUTTON_BLUE_CLICKED)
 
         for (let i = 0; i < 500; i++) this.load.image("logo" + i, FileLookUp[SpriteKey.GEM])
+    }
 
+    private showLoadingProgress(): void {
         this.progressBar = this.add.graphics()
 
         this.ballImage = this.add.image(this.scale.width / 2, this.scale.height / 2, SpriteKey.BALL_DEFAULT)
@@ -43,11 +60,6 @@ class SplashScene extends Scene
         })
     }
 
-    create(): void {
-        GameManager.stateMachine.configure(GameState.LOADING).onExit(-1, () => this.exitLoading())
-        GameManager.stateMachine.changeState(GameState.PLAY)
-    }
-    
     public exitLoading(): void {
         this.tweens.add({
             targets: this.ballImage,
@@ -56,7 +68,7 @@ class SplashScene extends Scene
             displayWidth: Constants.BALL_RADIUS * 2,
             duration: 500,
             ease: 'Sine.inout',
-            onComplete: () => this.scene.start(SceneKey.PLAY)
+            onComplete: () => GameManager.stateMachine.changeState(GameState.PLAY)
         })
 
         this.tweens.add({

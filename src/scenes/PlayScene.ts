@@ -7,10 +7,10 @@ import PlatformSpawner from "../objects/play/PlatformSpawner"
 import ScoreText from "../objects/play/ScoreText"
 import {ParamGameEvent} from "../utilities/Event"
 import Constants from "../configs/Constants"
+import VisitShopButton from "../objects/play/VisitShopButton"
+import {GameManager, GameState} from "../managers/GameManager"
 import POINTER_DOWN = Phaser.Input.Events.POINTER_DOWN
 import Vector2 = Phaser.Math.Vector2
-import VisitShopButton from "../objects/play/VisitShopButton"
-import GAMEOBJECT_DOWN = Phaser.Input.Events.GAMEOBJECT_DOWN
 
 class PlayScene extends Phaser.Scene
 {
@@ -25,11 +25,17 @@ class PlayScene extends Phaser.Scene
     public scoreText: ScoreText
 
     private startedPlaying: boolean = false
-    
+
     constructor() {
-        super({
-            key: SceneKey.PLAY
-        })
+        super({key: SceneKey.PLAY})
+
+        GameManager.stateMachine
+            .configure(GameState.PLAY)
+            .onEntry(-1, () => GameManager.sceneManager.start(SceneKey.PLAY))
+
+        GameManager.stateMachine
+            .configure(GameState.PLAY)
+            .onExit(-1, () => GameManager.sceneManager.stop(this))
     }
 
     create(): void {
@@ -49,7 +55,7 @@ class PlayScene extends Phaser.Scene
         spaceBar?.on(Phaser.Input.Keyboard.Events.DOWN, () => this.startPlay())
 
         new VisitShopButton(this)
-        
+
         this.stateMachine.configure(PlayState.MOVING).onEntry(-1, () => this.tweens.add({
             targets: this.cameras.main.followOffset,
             x: -100,

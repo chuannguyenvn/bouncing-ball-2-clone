@@ -10,6 +10,7 @@ enum GameState
 
 class GameManager
 {
+    public static sceneManager: Phaser.Scenes.ScenePlugin
     public static stateMachine: StateMachine<GameState> = new StateMachine<GameState>(GameState.BOOT)
 }
 

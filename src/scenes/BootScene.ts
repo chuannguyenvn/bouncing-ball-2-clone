@@ -7,9 +7,7 @@ import {GameManager, GameState} from "../managers/GameManager"
 class BootScene extends Scene
 {
     constructor() {
-        super({
-            key: SceneKey.BOOT
-        })
+        super({key: SceneKey.BOOT})
     }
 
     preload(): void {
@@ -17,10 +15,10 @@ class BootScene extends Scene
     }
 
     create(): void {
-        GameManager.stateMachine.configure(GameState.BOOT).onExit(-1, () => {
-            this.scene.stop()
-            this.scene.start(SceneKey.SPLASH)
-        })
+        GameManager.sceneManager = this.scene
+        GameManager.stateMachine
+            .configure(GameState.BOOT)
+            .onExit(-1, () => GameManager.sceneManager.stop(this))
         GameManager.stateMachine.changeState(GameState.LOADING)
     }
 }
