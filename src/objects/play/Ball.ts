@@ -16,7 +16,7 @@ class Ball extends Phaser.Physics.Matter.Sprite
     private velocityTween: Tween
 
     constructor(scene: PlayScene) {
-        super(scene.matter.world, 0, 0, SpriteKey.BALL_DEFAULT)
+        super(scene.matter.world, Constants.BALL_START_POSITION.x, Constants.BALL_START_POSITION.y, SpriteKey.BALL_DEFAULT)
         this.scene.add.existing(this)
         this.playScene = scene
 

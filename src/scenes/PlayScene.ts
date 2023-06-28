@@ -9,6 +9,7 @@ import PlatformSpawner from "../objects/play/PlatformSpawner"
 import ScoreText from "../objects/play/ScoreText"
 import {ParamGameEvent} from "../utilities/Event"
 import Constants from "../configs/Constants"
+import FileLookUp from "../configs/FileLookUp"
 import POINTER_DOWN = Phaser.Input.Events.POINTER_DOWN
 import Vector2 = Phaser.Math.Vector2
 
@@ -32,18 +33,8 @@ class PlayScene extends Phaser.Scene
         })
     }
 
-    preload(): void {
-        PreloadHelper.preloadSprite(this, SpriteKey.SQUARE)
-        PreloadHelper.preloadSprite(this, SpriteKey.GRADIENT)
-        PreloadHelper.preloadSprite(this, SpriteKey.GEM)
-        PreloadHelper.preloadSprite(this, SpriteKey.BALL_DEFAULT)
-        PreloadHelper.preloadSprite(this, SpriteKey.BUTTON_BLUE_IDLE)
-        PreloadHelper.preloadSprite(this, SpriteKey.BUTTON_BLUE_CLICKED)
-    }
-
     create(): void {
         this.ball = new Ball(this)
-        this.ball.y = 300
 
         this.platformSpawner = new PlatformSpawner(this)
         this.scoreText = new ScoreText(this)
@@ -64,7 +55,7 @@ class PlayScene extends Phaser.Scene
             duration: 400,
             ease: 'Sine.out',
         }))
-        
+
         this.tweens.setFps(60)
     }
 

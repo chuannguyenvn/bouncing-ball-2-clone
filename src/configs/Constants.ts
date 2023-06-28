@@ -1,5 +1,8 @@
-﻿const Constants = {
+﻿import Vector2 = Phaser.Math.Vector2
+
+const Constants = {
     BALL_RADIUS: 20,
+    BALL_START_POSITION: new Vector2(0, 300),
     BALL_X_VELOCITY: 4,
     PLATFORM_THICKNESS: 15,
     PLATFORM_TINT: 0x777684,

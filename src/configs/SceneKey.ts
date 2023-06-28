@@ -1,6 +1,7 @@
 ﻿enum SceneKey
 {
-    WELCOME = 'welcome-scene',
+    BOOT = 'boot-scene',
+    SPLASH = 'splash-scene',
     PLAY = 'play-scene',
 }
 
