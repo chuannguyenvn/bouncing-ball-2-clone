@@ -9,14 +9,14 @@ import {ParamGameEvent} from "../utilities/Event"
 import Constants from "../configs/Constants"
 import VisitShopButton from "../objects/play/VisitShopButton"
 import {GameManager, GameState} from "../managers/GameManager"
+import Background from "../objects/play/Background"
 import POINTER_DOWN = Phaser.Input.Events.POINTER_DOWN
 import Vector2 = Phaser.Math.Vector2
-import Background from "../objects/play/Background"
 
 class PlayScene extends Phaser.Scene
 {
-    public stateMachine: StateMachine<PlayState> = new StateMachine<PlayState>(PlayState.INIT)
-    public scoreChanged: ParamGameEvent<number> = new ParamGameEvent<number>()
+    public stateMachine: StateMachine<PlayState>
+    public scoreChanged: ParamGameEvent<number>
 
     public currentScore: number = -2
     public collectedGems: number = 0
@@ -26,7 +26,7 @@ class PlayScene extends Phaser.Scene
     public background: Background
     public scoreText: ScoreText
     private visitShopButton: VisitShopButton
-    
+
     private startedPlaying: boolean = false
 
     constructor() {
@@ -47,14 +47,17 @@ class PlayScene extends Phaser.Scene
 
     create(): void {
         this.startedPlaying = false
-        this.stateMachine.changeState(PlayState.INIT)
+        this.stateMachine = new StateMachine<PlayState>(PlayState.INIT)
+        this.scoreChanged = new ParamGameEvent<number>()
+        this.currentScore = -2
+        this.collectedGems = 0
         
         this.ball = new Ball(this)
-        
+
         this.platformSpawner = new PlatformSpawner(this)
         this.scoreText = new ScoreText(this)
         this.background = new Background(this)
-        
+
         this.matter.world.setBounds(0, 0, 100000, this.scale.height, 64, false, false, false)
         this.cameras.main.startFollow(this.ball, false, 0.9, 0)
         this.cameras.main.setBounds(-1000, 0, 100000, 0)
@@ -75,11 +78,9 @@ class PlayScene extends Phaser.Scene
                 duration: 400,
                 ease: 'Sine.out',
             })
-            
+
             this.visitShopButton.destroy()
         })
-
-        this.tweens.setFps(60)
     }
 
     public addScore(amount: number): void {

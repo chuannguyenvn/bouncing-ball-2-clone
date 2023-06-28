@@ -16,7 +16,7 @@ class Ball extends Phaser.Physics.Matter.Sprite
     private velocityTween: Tween
 
     constructor(scene: PlayScene) {
-        super(scene.matter.world, Constants.BALL_START_POSITION.x, Constants.BALL_START_POSITION.y, SpriteKey.BALL_DEFAULT)
+        super(scene.matter.world, 0, -100, SpriteKey.BALL_DEFAULT)
         this.scene.add.existing(this)
         this.playScene = scene
 
@@ -74,9 +74,18 @@ class Ball extends Phaser.Physics.Matter.Sprite
 
         const spaceBar = this.playScene.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)
         spaceBar?.on(Phaser.Input.Keyboard.Events.DOWN, () => this.thrustDown())
-
+        
         this.playScene.stateMachine.configure(PlayState.MOVING).onEntry(-1, () => {
             this.setStatic(false)
+        })
+
+        console.log("created")
+        this.playScene.tweens.add({
+            targets: this,
+            y: Constants.BALL_START_POSITION.y,
+            duration: 700,
+            ease: Phaser.Math.Easing.Sine.Out,
+            onStart: () => console.log("started")
         })
     }
 
