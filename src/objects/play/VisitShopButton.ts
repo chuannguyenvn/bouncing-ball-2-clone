@@ -1,4 +1,4 @@
-﻿import Button from "../welcome/Button"
+﻿import Button from "../prefabs/Button"
 import PlayScene from "../../scenes/PlayScene"
 import SpriteKey from "../../configs/SpriteKey"
 import GAMEOBJECT_POINTER_UP = Phaser.Input.Events.GAMEOBJECT_POINTER_UP

@@ -7,17 +7,17 @@ import Constants from "../configs/Constants"
 import {GameManager, GameState} from "../managers/GameManager"
 
 
-class SplashScene extends Scene
+class LoadScene extends Scene
 {
     private progressBar: Phaser.GameObjects.Graphics
     private ballImage: Phaser.GameObjects.Image
 
     constructor() {
-        super({key: SceneKey.SPLASH})
+        super({key: SceneKey.LOAD})
 
         GameManager.stateMachine
             .configure(GameState.LOADING)
-            .onEntry(-1, () => GameManager.sceneManager.start(SceneKey.SPLASH))
+            .onEntry(-1, () => GameManager.sceneManager.start(SceneKey.LOAD))
 
         GameManager.stateMachine
             .configure(GameState.LOADING)
@@ -61,7 +61,7 @@ class SplashScene extends Scene
         PreloadHelper.preloadSprite(this, SpriteKey.BUTTON_BLUE_IDLE)
         PreloadHelper.preloadSprite(this, SpriteKey.BUTTON_BLUE_CLICKED)
 
-        for (let i = 0; i < 500; i++) this.load.image("logo" + i, FileLookUp[SpriteKey.GEM])
+        // for (let i = 0; i < 500; i++) this.load.image("logo" + i, FileLookUp[SpriteKey.GEM])
     }
 
     private showLoadingProgress(): void {
@@ -80,4 +80,4 @@ class SplashScene extends Scene
     }
 }
 
-export default SplashScene
+export default LoadScene

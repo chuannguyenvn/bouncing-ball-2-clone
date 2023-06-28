@@ -1,6 +1,6 @@
 ﻿import Phaser from "phaser"
 import PlayScene from "../scenes/PlayScene"
-import SplashScene from "../scenes/SplashScene"
+import LoadScene from "../scenes/LoadScene"
 import BootScene from "../scenes/BootScene"
 
 const GAME_CONFIG: Phaser.Types.Core.GameConfig = {
@@ -11,7 +11,7 @@ const GAME_CONFIG: Phaser.Types.Core.GameConfig = {
     // scale: {
     //     mode: Phaser.Scale.RESIZE,
     // },
-    scene: [BootScene, SplashScene, PlayScene],
+    scene: [BootScene, LoadScene, PlayScene],
     backgroundColor: 0xffffff,
     physics: {
         default: 'matter',

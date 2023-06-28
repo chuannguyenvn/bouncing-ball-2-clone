@@ -74,12 +74,8 @@ class PlayScene extends Phaser.Scene
 
     public visitShop() {
         this.cameras.main.stopFollow()
-        this.cameras.main.pan(-1000, this.scale.height / 2, 1000, Phaser.Math.Easing.Sine.InOut, false, (_, progress) => {
-            if (progress === 1)
-            {
-                this.scene.stop()
-                this.scene.start(SceneKey.SHOP)
-            }
+        this.cameras.main.pan(-1000 + this.cameras.main.scrollX, this.scale.height / 2, 1000, Phaser.Math.Easing.Sine.InOut, false, (_, progress) => {
+            if (progress === 1) GameManager.stateMachine.changeState(GameState.SHOP)
         })
     }
 
