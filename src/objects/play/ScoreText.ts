@@ -6,7 +6,7 @@ class ScoreText extends Phaser.GameObjects.Text
     private playScene: PlayScene
 
     constructor(scene: PlayScene) {
-        super(scene, scene.scale.width / 2, 100, '0', {font: '100px verdana', color: 'red'})
+        super(scene, scene.scale.width / 2, 100, '0', {font: '100px open sans', color: 'red'})
         this.scene.add.existing(this)
         this.playScene = scene
 

@@ -33,7 +33,7 @@ class PlatformSpawner
         this.placeNextPlatform()
 
         this.touchedPlatformIndex.subscribe((index) => {
-            const moveUntilIndex = (index - 5 + Constants.PLATFORM_POOL_SIZE) % Constants.PLATFORM_POOL_SIZE
+            const moveUntilIndex = (index - 1 + Constants.PLATFORM_POOL_SIZE) % Constants.PLATFORM_POOL_SIZE
             while (this.currentPlatformIndex != moveUntilIndex)
             {
                 this.placeNextPlatform()
