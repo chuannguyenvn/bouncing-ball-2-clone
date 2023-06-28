@@ -4,6 +4,7 @@ import PreloadHelper from "../utilities/PreloadHelper"
 import SpriteKey from "../configs/SpriteKey"
 import FileLookUp from "../configs/FileLookUp"
 import Constants from "../configs/Constants"
+import {GameManager, GameState} from "../managers/GameManager"
 
 
 class SplashScene extends Scene
@@ -22,6 +23,7 @@ class SplashScene extends Scene
         PreloadHelper.preloadSprite(this, SpriteKey.GRADIENT)
         PreloadHelper.preloadSprite(this, SpriteKey.GEM)
         PreloadHelper.preloadSprite(this, SpriteKey.BALL_DEFAULT)
+        PreloadHelper.preloadSprite(this, SpriteKey.BALL_RED)
         PreloadHelper.preloadSprite(this, SpriteKey.BUTTON_BLUE_IDLE)
         PreloadHelper.preloadSprite(this, SpriteKey.BUTTON_BLUE_CLICKED)
 
@@ -42,6 +44,11 @@ class SplashScene extends Scene
     }
 
     create(): void {
+        GameManager.stateMachine.configure(GameState.LOADING).onExit(-1, () => this.exitLoading())
+        GameManager.stateMachine.changeState(GameState.PLAY)
+    }
+    
+    public exitLoading(): void {
         this.tweens.add({
             targets: this.ballImage,
             y: Constants.BALL_START_POSITION.y,

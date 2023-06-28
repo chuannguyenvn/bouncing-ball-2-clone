@@ -1,17 +1,16 @@
 ﻿import Phaser from "phaser"
 import SceneKey from "../configs/SceneKey"
-import SpriteKey from "../configs/SpriteKey"
 import Ball from "../objects/play/Ball"
-import PreloadHelper from "../utilities/PreloadHelper"
 import StateMachine from "../utilities/StateMachine"
 import PlayState from "../states/PlayState"
 import PlatformSpawner from "../objects/play/PlatformSpawner"
 import ScoreText from "../objects/play/ScoreText"
 import {ParamGameEvent} from "../utilities/Event"
 import Constants from "../configs/Constants"
-import FileLookUp from "../configs/FileLookUp"
 import POINTER_DOWN = Phaser.Input.Events.POINTER_DOWN
 import Vector2 = Phaser.Math.Vector2
+import VisitShopButton from "../objects/play/VisitShopButton"
+import GAMEOBJECT_DOWN = Phaser.Input.Events.GAMEOBJECT_DOWN
 
 class PlayScene extends Phaser.Scene
 {
@@ -26,7 +25,7 @@ class PlayScene extends Phaser.Scene
     public scoreText: ScoreText
 
     private startedPlaying: boolean = false
-
+    
     constructor() {
         super({
             key: SceneKey.PLAY
@@ -49,6 +48,8 @@ class PlayScene extends Phaser.Scene
         const spaceBar = this.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)
         spaceBar?.on(Phaser.Input.Keyboard.Events.DOWN, () => this.startPlay())
 
+        new VisitShopButton(this)
+        
         this.stateMachine.configure(PlayState.MOVING).onEntry(-1, () => this.tweens.add({
             targets: this.cameras.main.followOffset,
             x: -100,
@@ -95,6 +96,17 @@ class PlayScene extends Phaser.Scene
         if (this.startedPlaying) return
         this.stateMachine.changeState(PlayState.MOVING)
         this.startedPlaying = true
+    }
+
+    public visitShop() {
+        this.cameras.main.stopFollow()
+        this.cameras.main.pan(-1000, this.scale.height / 2, 1000, Phaser.Math.Easing.Sine.InOut, false, (_, progress) => {
+            if (progress === 1)
+            {
+                this.scene.stop()
+                this.scene.start(SceneKey.SHOP)
+            }
+        })
     }
 }
 

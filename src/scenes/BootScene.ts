@@ -2,6 +2,7 @@
 import SceneKey from "../configs/SceneKey"
 import PreloadHelper from "../utilities/PreloadHelper"
 import SpriteKey from "../configs/SpriteKey"
+import {GameManager, GameState} from "../managers/GameManager"
 
 class BootScene extends Scene
 {
@@ -11,13 +12,16 @@ class BootScene extends Scene
         })
     }
 
-    preload() : void{
+    preload(): void {
         PreloadHelper.preloadSprite(this, SpriteKey.BALL_DEFAULT)
     }
-    
-    create() : void{
-        this.scene.stop()
-        this.scene.start(SceneKey.SPLASH)
+
+    create(): void {
+        GameManager.stateMachine.configure(GameState.BOOT).onExit(-1, () => {
+            this.scene.stop()
+            this.scene.start(SceneKey.SPLASH)
+        })
+        GameManager.stateMachine.changeState(GameState.LOADING)
     }
 }
 
