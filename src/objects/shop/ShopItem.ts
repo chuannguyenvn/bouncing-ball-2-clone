@@ -2,6 +2,7 @@
 import SpriteKey from "../../configs/SpriteKey"
 import ShopScene from "../../scenes/ShopScene"
 import Constants from "../../configs/Constants"
+import GameObjectType from "../../configs/GameObjectType"
 import GAMEOBJECT_POINTER_UP = Phaser.Input.Events.GAMEOBJECT_POINTER_UP
 import Text = Phaser.GameObjects.Text
 
@@ -15,10 +16,12 @@ class ShopItem extends Phaser.Physics.Matter.Sprite
     private priceText: Text
 
     constructor(scene: ShopScene, spriteKey: SpriteKey, price: number) {
-        super(scene.matter.world, 100, 100, spriteKey)
+        super(scene.matter.world, 100, 200, spriteKey)
         this.shopScene = scene
         this.shopScene.add.existing(this)
         this.spriteKey = spriteKey
+
+        this.type = GameObjectType.SHOP_BALL
 
         if (!localStorage.getItem(this.spriteKey)) localStorage.setItem(this.spriteKey, 'no')
         this.isPurchased = localStorage.getItem(this.spriteKey) as string === 'yes'
@@ -41,7 +44,9 @@ class ShopItem extends Phaser.Physics.Matter.Sprite
         }
 
         this.setInteractive()
-        this.on(GAMEOBJECT_POINTER_UP, () => this.purchase())
+        this.on(GAMEOBJECT_POINTER_UP, () => {
+            if (!this.isPurchased) this.purchase()
+        })
     }
 
     public purchase(): void {
