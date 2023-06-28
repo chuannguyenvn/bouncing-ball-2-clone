@@ -2,7 +2,6 @@
 import SceneKey from "../configs/SceneKey"
 import PreloadHelper from "../utilities/PreloadHelper"
 import SpriteKey from "../configs/SpriteKey"
-import FileLookUp from "../configs/FileLookUp"
 import Constants from "../configs/Constants"
 import {GameManager, GameState} from "../managers/GameManager"
 
@@ -18,10 +17,6 @@ class LoadScene extends Scene
         GameManager.stateMachine
             .configure(GameState.LOADING)
             .onEntry(-1, () => GameManager.sceneManager.start(SceneKey.LOAD))
-
-        GameManager.stateMachine
-            .configure(GameState.LOADING)
-            .onExit(-1, () => GameManager.sceneManager.stop(this))
     }
 
     preload(): void {
@@ -41,7 +36,10 @@ class LoadScene extends Scene
             displayWidth: Constants.BALL_RADIUS * 2,
             duration: 500,
             ease: 'Sine.inout',
-            onComplete: () => GameManager.stateMachine.changeState(GameState.PLAY)
+            onComplete: () => {
+                GameManager.stateMachine.changeState(GameState.PLAY)
+                this.ballImage.destroy()
+            }
         })
 
         this.tweens.add({
@@ -49,6 +47,9 @@ class LoadScene extends Scene
             alpha: 0,
             duration: 200,
             ease: 'Sine.inout',
+            onComplete: () => {
+                this.progressBar.destroy()
+            }
         })
     }
 
@@ -71,7 +72,6 @@ class LoadScene extends Scene
         this.ballImage.scale = 0.25
 
         this.load.on(Phaser.Loader.Events.PROGRESS, (value: number) => {
-            console.log(value)
             this.progressBar.clear()
             this.progressBar.fillStyle(0x333333, 1)
             this.progressBar.fillRect(this.scale.width / 2 - 30, this.scale.height / 2 + 60, 60 * value, 5)

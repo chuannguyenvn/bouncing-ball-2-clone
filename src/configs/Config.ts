@@ -2,6 +2,7 @@
 import PlayScene from "../scenes/PlayScene"
 import LoadScene from "../scenes/LoadScene"
 import BootScene from "../scenes/BootScene"
+import ShopScene from "../scenes/ShopScene"
 
 const GAME_CONFIG: Phaser.Types.Core.GameConfig = {
     title: 'Bouncing Ball 2',
@@ -11,7 +12,7 @@ const GAME_CONFIG: Phaser.Types.Core.GameConfig = {
     // scale: {
     //     mode: Phaser.Scale.RESIZE,
     // },
-    scene: [BootScene, LoadScene, PlayScene],
+    scene: [BootScene, LoadScene, PlayScene, ShopScene],
     backgroundColor: 0xffffff,
     physics: {
         default: 'matter',

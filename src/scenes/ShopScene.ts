@@ -24,7 +24,8 @@ class ShopScene extends Phaser.Scene
     }
 
     create(): void {
-        this.shopItems.push(new ShopItem(this, SpriteKey.BALL_RED, 10))
+        this.matter.world.setBounds()
+        this.shopItems.push(new ShopItem(this, SpriteKey.BALL_DEFAULT, 10))
     }
 }
 
