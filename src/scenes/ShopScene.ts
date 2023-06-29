@@ -6,16 +6,16 @@ import ChooseBallZone from "../objects/shop/ChooseBallZone"
 import Phaser from "phaser"
 import {BodyType} from "matter"
 import GameObjectType from "../configs/GameObjectType"
-import CollisionStartEvent = Phaser.Physics.Matter.Events.CollisionStartEvent
-import shopItem from "../objects/shop/ShopItem"
-import Text = Phaser.GameObjects.Text
 import Constants from "../configs/Constants"
+import CollisionStartEvent = Phaser.Physics.Matter.Events.CollisionStartEvent
+import Text = Phaser.GameObjects.Text
+import Image = Phaser.Physics.Matter.Image
 
 class ShopScene extends Phaser.Scene
 {
     private shopItems: ShopItem[] = []
     private gemCountText: Text
-    
+
     constructor() {
         super({key: SceneKey.SHOP})
 
@@ -38,7 +38,7 @@ class ShopScene extends Phaser.Scene
         new ChooseBallZone(this)
 
         this.shopItems = []
-        
+
         this.shopItems.push(new ShopItem(this, SpriteKey.BALL_DEFAULT, 10))
         this.shopItems.push(new ShopItem(this, SpriteKey.BALL_HAPPY, 10))
         this.shopItems.push(new ShopItem(this, SpriteKey.BALL_CHIP, 10))
@@ -53,9 +53,9 @@ class ShopScene extends Phaser.Scene
             x: -50,
             y: 100,
         })
-        
+
         this.shopItems.forEach(shopItem => shopItem.alignText())
-        
+
         this.matter.add.mouseSpring()
 
         this.matter.world.on(
@@ -75,19 +75,58 @@ class ShopScene extends Phaser.Scene
                     {
                         GameManager.currentSkin = (bodyB.gameObject as ShopItem).spriteKey
                     }
-                    
+
                     this.cameras.main.pan(1000 + this.cameras.main.scrollX, this.scale.height / 2, 1000, Phaser.Math.Easing.Sine.InOut, false, (_, progress) => {
                         if (progress === 1) GameManager.stateMachine.changeState(GameState.PLAY)
                     })
                 }
             })
-        
+
         this.gemCountText = this.add.text(100, 100, localStorage.getItem(Constants.GEMS_COLLECTED_STORAGE_KEY) as string)
         this.gemCountText.setColor('#222222')
+
+        const bridge: Image[] = []
+        
+        const group = this.matter.world.nextGroup(true)
+        
+        let x = 0
+        let prev = this.matter.add.image(x, 600, SpriteKey.BALL_DEFAULT, undefined, {
+            shape: 'circle',
+            mass: 0.1,
+            circleRadius: 2
+        })
+        prev.setDisplaySize(Constants.BALL_RADIUS * 2, Constants.BALL_RADIUS * 2)
+        bridge.push(prev
+        )
+        for (var i = 0; i < 15; i++)
+        {
+            var ball = this.matter.add.image(x, 600, SpriteKey.BALL_DEFAULT, undefined, {
+                shape: 'circle',
+                mass: 0.1,
+                circleRadius: 2,
+                collisionFilter: {group: group}
+            })
+            bridge.push(ball)
+            this.matter.add.joint(prev.body as BodyType, ball.body as BodyType, 25, 0.8)
+            prev = ball
+            prev.setDisplaySize(Constants.BALL_RADIUS * 2, Constants.BALL_RADIUS * 2)
+
+            x += 30
+        }
+        prev.setDisplaySize(Constants.BALL_RADIUS * 2, Constants.BALL_RADIUS * 2)
+
+        this.matter.add.worldConstraint(bridge[0].body as BodyType, 2, 0.9, {
+            pointA: { x: 0, y: 600 },
+            pointB: { x: -25, y: 0 }
+        });
+
+        this.matter.add.worldConstraint(bridge[bridge.length - 1].body as BodyType, 2, 0.9, {
+            pointA: { x: this.scale.width, y: 600 },
+            pointB: { x: 25, y: 0 }
+        });
     }
-    
-    public updateGemCount(value: number)
-    {
+
+    public updateGemCount(value: number) {
         this.gemCountText.text = value.toString()
     }
 }
