@@ -37,6 +37,11 @@ class Button<S extends Scene> extends Phaser.GameObjects.NineSlice
         this.text?.setPosition(x, y)
         return super.setPosition(x, y, z, w)
     }
+    
+    public setVisible(value: boolean): this {
+        this.text?.setVisible(value)
+        return super.setVisible(value)
+    }
 }
 
 export default Button
