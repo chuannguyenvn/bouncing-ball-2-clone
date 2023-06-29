@@ -10,8 +10,10 @@ import Constants from "../configs/Constants"
 import VisitShopButton from "../objects/play/VisitShopButton"
 import {GameManager, GameState} from "../managers/GameManager"
 import Background from "../objects/play/Background"
+import RestartButton from "../objects/play/RestartButton"
 import POINTER_DOWN = Phaser.Input.Events.POINTER_DOWN
 import Vector2 = Phaser.Math.Vector2
+import POINTER_UP = Phaser.Input.Events.POINTER_UP
 
 class PlayScene extends Phaser.Scene
 {
@@ -27,6 +29,7 @@ class PlayScene extends Phaser.Scene
     public scoreText: ScoreText
     public isWelcomingPlayer: boolean = true
     private visitShopButton: VisitShopButton
+    private restartButton: RestartButton
     private startedPlaying: boolean = false
 
     constructor() {
@@ -59,7 +62,9 @@ class PlayScene extends Phaser.Scene
         this.scoreText = new ScoreText(this)
         this.background = new Background(this)
         this.visitShopButton = new VisitShopButton(this)
-
+        this.restartButton = new RestartButton(this)
+        this.restartButton.setVisible(false)
+        
         this.matter.world.setBounds(0, 0, 100000, this.scale.height, 64, false, false, false)
 
         this.cameras.main.scrollX = -1000
@@ -72,17 +77,20 @@ class PlayScene extends Phaser.Scene
         else
         {
             this.cameras.main.startFollow(this.ball, false, 0.9, 0)
-            
         }
         this.cameras.main.setBounds(-1000, 0, 100000, 0)
 
         this.stateMachine.configure(PlayState.LOSE).onEntry(-1, this.handleLoseEntry.bind(this))
 
-        this.input.on(POINTER_DOWN, () => this.startPlay())
+        this.input.on(POINTER_UP, () => this.startPlay())
 
         const spaceBar = this.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)
         spaceBar?.on(Phaser.Input.Keyboard.Events.DOWN, () => this.startPlay())
 
+        this.stateMachine.configure(PlayState.INIT).onExit(-1, () => {
+            this.visitShopButton.setVisible(false)
+        })
+        
         this.stateMachine.configure(PlayState.MOVING).onEntry(-1, () => {
             this.tweens.add({
                 targets: this.cameras.main.followOffset,
@@ -90,10 +98,16 @@ class PlayScene extends Phaser.Scene
                 duration: 400,
                 ease: 'Sine.out',
             })
-
-            // this.visitShopButton.destroy()
         })
         
+        this.stateMachine.configure(PlayState.LOSE).onEntry(-1, () =>{
+            this.restartButton.setVisible(true)
+        })
+
+        this.stateMachine.configure(PlayState.LOSE).onExit(-1, () =>{
+            this.restartButton.setVisible(false)
+        })
+
         this.handleGemsCollected()
         this.handleHighScore()
     }

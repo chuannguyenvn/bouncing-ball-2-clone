@@ -10,7 +10,7 @@ class Button<S extends Scene> extends Phaser.GameObjects.NineSlice
 {
     public text: Text
 
-    constructor(scene: S, idleSprite: SpriteKey, hoverSprite?: SpriteKey, clickedSprite?: SpriteKey) {
+    constructor(scene: S, idleSprite: SpriteKey = SpriteKey.BUTTON_IDLE, hoverSprite: SpriteKey = SpriteKey.BUTTON_IDLE, clickedSprite: SpriteKey = SpriteKey.BUTTON_CLICKED) {
         super(scene, 0, 0, idleSprite, 0, 512, 256, 128, 128)
         this.scene.add.existing(this)
 
