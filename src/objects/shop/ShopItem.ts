@@ -27,7 +27,8 @@ class ShopItem extends Phaser.Physics.Matter.Sprite
         this.isPurchased = localStorage.getItem(this.spriteKey) as string === 'yes'
 
         this.price = price
-
+        if (price < 0) this.isPurchased = true
+        
         this.setDisplaySize(Constants.BALL_RADIUS * 2, Constants.BALL_RADIUS * 2)
         this.setCircle(Constants.BALL_RADIUS)
         this.setStatic(!this.isPurchased)
@@ -60,7 +61,7 @@ class ShopItem extends Phaser.Physics.Matter.Sprite
         const oldGemCount = parseInt(localStorage.getItem(Constants.GEMS_COLLECTED_STORAGE_KEY) as string)
         const newGemCount = oldGemCount - this.price
         localStorage.setItem(Constants.GEMS_COLLECTED_STORAGE_KEY, newGemCount.toString())
-        
+
         this.shopScene.updateGemCount(newGemCount)
     }
 

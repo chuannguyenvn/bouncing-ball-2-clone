@@ -36,11 +36,13 @@ class ShopScene extends Phaser.Scene
 
         this.shopItems = []
 
-        this.shopItems.push(new ShopItem(this, SpriteKey.BALL_DEFAULT, 10))
-        this.shopItems.push(new ShopItem(this, SpriteKey.BALL_HAPPY, 10))
-        this.shopItems.push(new ShopItem(this, SpriteKey.BALL_CHIP, 10))
-        this.shopItems.push(new ShopItem(this, SpriteKey.BALL_LEMON, 10))
-        this.shopItems.push(new ShopItem(this, SpriteKey.BALL_YINGYANG, 10))
+        this.shopItems.push(new ShopItem(this, SpriteKey.BALL_DEFAULT, -1))
+        this.shopItems.push(new ShopItem(this, SpriteKey.BALL_HAPPY, 3))
+        this.shopItems.push(new ShopItem(this, SpriteKey.BALL_CHIP, 3))
+        this.shopItems.push(new ShopItem(this, SpriteKey.BALL_LEMON, 3))
+        this.shopItems.push(new ShopItem(this, SpriteKey.BALL_YINGYANG, 3))
+
+        this.shopItems[0].purchase()
 
         Phaser.Actions.GridAlign(this.shopItems, {
             width: -1,
@@ -85,7 +87,7 @@ class ShopScene extends Phaser.Scene
         this.gemCountText.setOrigin(0.5)
         this.gemCountText.setDepth(-100)
 
-       this.gemImage =  this.add.image(this.scale.width / 2, this.scale.height / 2 + 100, SpriteKey.GEM)
+        this.gemImage = this.add.image(this.scale.width / 2, this.scale.height / 2 + 100, SpriteKey.GEM)
 
         const bridge: Image[] = []
 
@@ -129,7 +131,7 @@ class ShopScene extends Phaser.Scene
     }
 
     public updateGemCount(value: number) {
-        this.gemCountText.text = value.toString()
+        if (this.gemCountText) this.gemCountText.text = value.toString()
     }
 }
 

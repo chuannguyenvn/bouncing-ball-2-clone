@@ -14,6 +14,7 @@ import RestartButton from "../objects/play/RestartButton"
 import POINTER_DOWN = Phaser.Input.Events.POINTER_DOWN
 import Vector2 = Phaser.Math.Vector2
 import POINTER_UP = Phaser.Input.Events.POINTER_UP
+import HighScoreText from "../objects/play/HighScoreText"
 
 class PlayScene extends Phaser.Scene
 {
@@ -27,6 +28,7 @@ class PlayScene extends Phaser.Scene
     public platformSpawner: PlatformSpawner
     public background: Background
     public scoreText: ScoreText
+    public highScoreText: HighScoreText
     public isWelcomingPlayer: boolean = true
     private visitShopButton: VisitShopButton
     private restartButton: RestartButton
@@ -60,6 +62,7 @@ class PlayScene extends Phaser.Scene
 
         this.platformSpawner = new PlatformSpawner(this)
         this.scoreText = new ScoreText(this)
+        this.highScoreText = new HighScoreText(this)
         this.background = new Background(this)
         this.visitShopButton = new VisitShopButton(this)
         this.restartButton = new RestartButton(this)
@@ -80,17 +83,15 @@ class PlayScene extends Phaser.Scene
         }
         this.cameras.main.setBounds(-1000, 0, 100000, 0)
 
-        this.stateMachine.configure(PlayState.LOSE).onEntry(-1, this.handleLoseEntry.bind(this))
-
         this.input.on(POINTER_UP, () => this.startPlay())
 
         const spaceBar = this.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)
-        spaceBar?.on(Phaser.Input.Keyboard.Events.DOWN, () => this.startPlay())
 
+        spaceBar?.on(Phaser.Input.Keyboard.Events.DOWN, () => this.startPlay())
         this.stateMachine.configure(PlayState.INIT).onExit(-1, () => {
             this.visitShopButton.setVisible(false)
         })
-        
+
         this.stateMachine.configure(PlayState.MOVING).onEntry(-1, () => {
             this.tweens.add({
                 targets: this.cameras.main.followOffset,
@@ -99,6 +100,8 @@ class PlayScene extends Phaser.Scene
                 ease: 'Sine.out',
             })
         })
+
+        this.stateMachine.configure(PlayState.MOVING).onExit(-1, this.handleLoseEntry.bind(this))
         
         this.stateMachine.configure(PlayState.LOSE).onEntry(-1, () =>{
             this.restartButton.setVisible(true)
