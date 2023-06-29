@@ -10,9 +10,14 @@ import Gem from "./Gem"
 import CollisionStartEvent = Phaser.Physics.Matter.Events.CollisionStartEvent
 import Tween = Phaser.Tweens.Tween
 import {GameManager} from "../../managers/GameManager"
+import {GameEvent, ParamGameEvent} from "../../utilities/Event"
+import Color = Phaser.Display.Color
 
 class Ball extends Phaser.Physics.Matter.Sprite
 {
+    public hitCenter: ParamGameEvent<number> = new ParamGameEvent<number>()
+    public hitEdge: GameEvent = new GameEvent()
+    
     private playScene: PlayScene
     private velocityTween: Tween
 
@@ -34,23 +39,26 @@ class Ball extends Phaser.Physics.Matter.Sprite
             (event: CollisionStartEvent, bodyA: BodyType, bodyB: BodyType) => {
                 if (bodyB.gameObject && (bodyB.gameObject.type === GameObjectType.PLATFORM_MIDDLE || bodyB.gameObject.type === GameObjectType.PLATFORM_SIDE))
                 {
-                    if (bodyB.gameObject.type === GameObjectType.PLATFORM_MIDDLE)
-                    {
-                        this.playScene.addScore(2)
-                        // this.playScene.background.flashColor(0xbbffbb)
-                    }
-                    else
-                    {
-                        this.playScene.addScore(1)
-                    }
-
                     if (this.velocityTween) this.velocityTween.stop()
 
                     const platformComponent = (bodyB.gameObject as PlatformComponent)
                     const index = platformComponent.platformParent.index
                     this.playScene.platformSpawner.touchedPlatformIndex.invoke(index)
 
-                    platformComponent.glow()
+                    if (bodyB.gameObject.type === GameObjectType.PLATFORM_MIDDLE)
+                    {
+                        const color = Phaser.Math.RND.pick(Constants.GRADIENT_COLUMN_RANDOM_TINTS)
+                        this.playScene.addScore(2)
+                        this.hitCenter.invoke(color)
+                        platformComponent.glow(Constants.PLATFORM_HIT_MIDDLE_TINT)
+                    }
+                    else
+                    {
+                        this.playScene.addScore(1)
+                        this.hitEdge.invoke()
+                        platformComponent.glow(Constants.PLATFORM_HIT_EDGE_TINT)
+                    }
+                    
                     platformComponent.platformParent.removeBody()
                     this.playScene.time.addEvent({
                         delay: 5, callback: () => {

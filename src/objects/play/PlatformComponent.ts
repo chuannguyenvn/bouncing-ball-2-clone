@@ -54,17 +54,8 @@ class PlatformComponent extends Phaser.Physics.Matter.Image
         }
     }
 
-    public glow() {
-        switch (this.platformChildType)
-        {
-            case PlatformChildType.LEFT:
-            case PlatformChildType.RIGHT:
-                this.setTint(0xff0000)
-                break
-            case PlatformChildType.MIDDLE:
-                this.setTint(0x00ff00)
-                break
-        }
+    public glow(color: number) {
+        this.setTint(color)
     }
 }
 

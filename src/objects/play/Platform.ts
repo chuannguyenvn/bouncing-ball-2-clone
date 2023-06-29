@@ -34,12 +34,15 @@ class Platform extends Phaser.GameObjects.GameObject
         this.platformMiddle = new PlatformComponent(scene, this, PlatformChildType.MIDDLE)
 
         this.gem = new Gem(this.playScene, this)
+
+        this.playScene.ball.hitCenter.subscribe((color) => this.handleBallHitCenter(color))
+        this.playScene.ball.hitEdge.subscribe(() => this.handleBallHitEdge())
     }
 
     public setup(xPosition: number, yPosition: number, width: number): void {
         this.gradientColumn.setPosition(xPosition, yPosition)
-        this.gradientColumn.setDisplaySize(width, 700 - yPosition)
-        this.gradientColumn.setTint(Constants.GRADIENT_COLUM_DEFAULT_TINT)
+        this.gradientColumn.setDisplaySize(width, 800 - yPosition)
+        this.gradientColumn.setTint(Constants.GRADIENT_COLUMN_DEFAULT_TINT)
 
         this.platformLeft.setup(xPosition, yPosition, width)
         this.platformRight.setup(xPosition, yPosition, width)
@@ -70,6 +73,14 @@ class Platform extends Phaser.GameObjects.GameObject
 
     public collectGem(): void {
         this.gem.setPosition(0, -100)
+    }
+
+    private handleBallHitCenter(color: number): void {
+        this.gradientColumn.setTint(color)
+    }
+
+    private handleBallHitEdge(): void {
+        this.gradientColumn.setTint(Constants.GRADIENT_COLUMN_DEFAULT_TINT)
     }
 }
 
