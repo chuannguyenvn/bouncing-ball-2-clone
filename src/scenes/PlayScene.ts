@@ -25,9 +25,8 @@ class PlayScene extends Phaser.Scene
     public platformSpawner: PlatformSpawner
     public background: Background
     public scoreText: ScoreText
-    private visitShopButton: VisitShopButton
-
     public isWelcomingPlayer: boolean = true
+    private visitShopButton: VisitShopButton
     private startedPlaying: boolean = false
 
     constructor() {

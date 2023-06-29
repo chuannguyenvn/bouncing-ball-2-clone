@@ -24,11 +24,11 @@ class Background extends Phaser.GameObjects.Rectangle
             ease: Phaser.Math.Easing.Sine.InOut,
             onUpdate: tween => {
                 const colorObject = Phaser.Display.Color.Interpolate.ColorWithColor(
-                    Color.IntegerToColor(value), 
-                    Color.IntegerToColor(0xffffff), 
-                    100, 
+                    Color.IntegerToColor(value),
+                    Color.IntegerToColor(0xffffff),
+                    100,
                     tween.getValue())
-                
+
                 this.setFillStyle(Phaser.Display.Color.GetColor(colorObject.r, colorObject.g, colorObject.b))
             }
         })

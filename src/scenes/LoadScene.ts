@@ -4,7 +4,6 @@ import PreloadHelper from "../utilities/PreloadHelper"
 import SpriteKey from "../configs/SpriteKey"
 import Constants from "../configs/Constants"
 import {GameManager, GameState} from "../managers/GameManager"
-import FileLookUp from "../configs/FileLookUp"
 
 
 class LoadScene extends Scene

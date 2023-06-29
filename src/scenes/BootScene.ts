@@ -16,7 +16,7 @@ class BootScene extends Scene
 
     create(): void {
         this.tweens.setFps(60)
-        
+
         GameManager.sceneManager = this.scene
         GameManager.stateMachine
             .configure(GameState.BOOT)
