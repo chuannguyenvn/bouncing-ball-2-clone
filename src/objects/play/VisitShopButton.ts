@@ -13,11 +13,13 @@ class VisitShopButton extends Button<PlayScene>
 
         this.setPosition(70, 40)
         this.setDepth(100)
+        this.setSize(700, 10)
+        this.setScale(0.15)
 
         this.on(GAMEOBJECT_POINTER_UP, () => {
             this.playScene.visitShop()
         })
-        
+
         this.text.text = "Shop"
     }
 }

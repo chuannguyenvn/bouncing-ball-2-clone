@@ -5,6 +5,8 @@ import GAMEOBJECT_POINTER_OVER = Phaser.Input.Events.GAMEOBJECT_POINTER_OVER
 import GAMEOBJECT_POINTER_DOWN = Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN
 import GAMEOBJECT_POINTER_UP = Phaser.Input.Events.GAMEOBJECT_POINTER_UP
 import Text = Phaser.GameObjects.Text
+import Constants from "../../configs/Constants"
+import Color = Phaser.Display.Color
 
 class Button<S extends Scene> extends Phaser.GameObjects.NineSlice
 {
@@ -24,13 +26,14 @@ class Button<S extends Scene> extends Phaser.GameObjects.NineSlice
         this.setTexture(idleSprite)
         this.setSize(1000, 10)
         this.setScale(0.1)
-        this.setTint(0xddffdd)
+        this.setTint(Constants.PLATFORM_TINT)
 
         this.text = scene.add.text(this.x, this.y, "text")
         this.text.setOrigin(0.5)
-        this.text.setColor("#222222")
+        this.text.setColor('#ffffff')
         this.text.setDepth(1000)
         this.text.setScrollFactor(0)
+        this.text.setFont('25px calibri')
     }
 
     public setPosition(x?: number, y?: number, z?: number, w?: number): this {

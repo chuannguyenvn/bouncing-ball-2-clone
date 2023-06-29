@@ -9,12 +9,13 @@ import GameObjectType from "../configs/GameObjectType"
 import Constants from "../configs/Constants"
 import CollisionStartEvent = Phaser.Physics.Matter.Events.CollisionStartEvent
 import Text = Phaser.GameObjects.Text
-import Image = Phaser.Physics.Matter.Image
+import Image = Phaser.GameObjects.Image
 
 class ShopScene extends Phaser.Scene
 {
     private shopItems: ShopItem[] = []
     private gemCountText: Text
+    private gemImage: Image
 
     constructor() {
         super({key: SceneKey.SHOP})
@@ -78,13 +79,18 @@ class ShopScene extends Phaser.Scene
                 }
             })
 
-        this.gemCountText = this.add.text(100, 100, localStorage.getItem(Constants.GEMS_COLLECTED_STORAGE_KEY) as string)
-        this.gemCountText.setColor('#222222')
+        this.gemCountText = this.add.text(this.scale.width / 2, this.scale.height / 2, localStorage.getItem(Constants.GEMS_COLLECTED_STORAGE_KEY) as string)
+        this.gemCountText.setColor('#eeeeee')
+        this.gemCountText.setFont('100px calibri')
+        this.gemCountText.setOrigin(0.5)
+        this.gemCountText.setDepth(-100)
+
+       this.gemImage =  this.add.image(this.scale.width / 2, this.scale.height / 2 + 100, SpriteKey.GEM)
 
         const bridge: Image[] = []
-        
+
         const group = this.matter.world.nextGroup(true)
-        
+
         let x = 0
         let prev = this.matter.add.image(x, 600, SpriteKey.BALL_DEFAULT, undefined, {
             shape: 'circle',
@@ -112,14 +118,14 @@ class ShopScene extends Phaser.Scene
         prev.setDisplaySize(Constants.BALL_RADIUS * 2, Constants.BALL_RADIUS * 2)
 
         this.matter.add.worldConstraint(bridge[0].body as BodyType, 2, 0.9, {
-            pointA: { x: 0, y: 50 },
-            pointB: { x: -25, y: 0 }
-        });
+            pointA: {x: 0, y: 50},
+            pointB: {x: -25, y: 0}
+        })
 
         this.matter.add.worldConstraint(bridge[bridge.length - 1].body as BodyType, 2, 0.9, {
-            pointA: { x: this.scale.width, y: 50 },
-            pointB: { x: 25, y: 0 }
-        });
+            pointA: {x: this.scale.width, y: 50},
+            pointB: {x: 25, y: 0}
+        })
     }
 
     public updateGemCount(value: number) {
