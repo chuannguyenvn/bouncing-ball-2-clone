@@ -10,7 +10,7 @@ class ShopItem extends Phaser.Physics.Matter.Sprite
 {
     public readonly price: number
     private shopScene: ShopScene
-    private spriteKey: SpriteKey
+    public spriteKey: SpriteKey
     private isPurchased: boolean = false
 
     private priceText: Text
@@ -45,7 +45,7 @@ class ShopItem extends Phaser.Physics.Matter.Sprite
 
         this.setInteractive()
         this.on(GAMEOBJECT_POINTER_UP, () => {
-            if (!this.isPurchased) this.purchase()
+            if (!this.isPurchased && parseInt(localStorage.getItem(Constants.GEMS_COLLECTED_STORAGE_KEY) as string) >= this.price) this.purchase()
         })
     }
 
@@ -56,12 +56,23 @@ class ShopItem extends Phaser.Physics.Matter.Sprite
         this.releaseBall()
 
         if (this.priceText) this.priceText.destroy()
+
+        const oldGemCount = parseInt(localStorage.getItem(Constants.GEMS_COLLECTED_STORAGE_KEY) as string)
+        const newGemCount = oldGemCount - this.price
+        localStorage.setItem(Constants.GEMS_COLLECTED_STORAGE_KEY, newGemCount.toString())
+        
+        this.shopScene.updateGemCount(newGemCount)
     }
 
     private releaseBall(): void {
         this.setStatic(false)
         this.setVelocity(Phaser.Math.Between(-1, 1), Phaser.Math.Between(-3, -5))
         this.setAngularVelocity(Phaser.Math.Between(-0.5, 0.5))
+    }
+
+    public alignText(): void {
+        if (this.isPurchased) return
+        this.priceText.setPosition(this.x, this.y + 50)
     }
 }
 

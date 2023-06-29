@@ -94,6 +94,9 @@ class PlayScene extends Phaser.Scene
 
             // this.visitShopButton.destroy()
         })
+        
+        this.handleGemsCollected()
+        this.handleHighScore()
     }
 
     public addScore(amount: number): void {

@@ -58,7 +58,10 @@ class LoadScene extends Scene
         PreloadHelper.preloadSprite(this, SpriteKey.GRADIENT)
         PreloadHelper.preloadSprite(this, SpriteKey.GEM)
         PreloadHelper.preloadSprite(this, SpriteKey.BALL_DEFAULT)
-        PreloadHelper.preloadSprite(this, SpriteKey.BALL_RED)
+        PreloadHelper.preloadSprite(this, SpriteKey.BALL_HAPPY)
+        PreloadHelper.preloadSprite(this, SpriteKey.BALL_CHIP)
+        PreloadHelper.preloadSprite(this, SpriteKey.BALL_LEMON)
+        PreloadHelper.preloadSprite(this, SpriteKey.BALL_YINGYANG)
         PreloadHelper.preloadSprite(this, SpriteKey.BUTTON_BLUE_IDLE)
         PreloadHelper.preloadSprite(this, SpriteKey.BUTTON_BLUE_CLICKED)
 

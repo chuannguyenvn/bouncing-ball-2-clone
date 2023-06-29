@@ -9,6 +9,7 @@ import {PlatformComponent} from "./PlatformComponent"
 import Gem from "./Gem"
 import CollisionStartEvent = Phaser.Physics.Matter.Events.CollisionStartEvent
 import Tween = Phaser.Tweens.Tween
+import {GameManager} from "../../managers/GameManager"
 
 class Ball extends Phaser.Physics.Matter.Sprite
 {
@@ -16,7 +17,7 @@ class Ball extends Phaser.Physics.Matter.Sprite
     private velocityTween: Tween
 
     constructor(scene: PlayScene) {
-        super(scene.matter.world, -300, -100, SpriteKey.BALL_DEFAULT)
+        super(scene.matter.world, -300, -100, GameManager.currentSkin)
         this.scene.add.existing(this)
         this.playScene = scene
 
