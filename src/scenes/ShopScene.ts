@@ -127,6 +127,7 @@ class ShopScene extends Phaser.Scene
         })
 
         const initialGemCount = parseInt(localStorage.getItem(Constants.GEMS_COLLECTED_STORAGE_KEY) as string)
+        console.log(initialGemCount)
         for (let i = 0; i < initialGemCount; i++)
         {
             const gem = new Gem(this, undefined, false)
@@ -138,10 +139,11 @@ class ShopScene extends Phaser.Scene
 
     public updateGemCount(value: number) {
         if (this.gemCountText) this.gemCountText.text = value.toString()
-        for (let i = this.gems.length - 1; i > this.gems.length - value; i--)
+        for (let i = this.gems.length - 1; i >= value; i--)
         {
-            this.gems[i].destroy()
-            this.gems.pop()
+            const gem = this.gems.pop() as Gem
+            gem.destroy()
+            console.log('aaaaaaaaaaaaaaaaaaaaaaaaa')
         }
     }
 }
