@@ -8,8 +8,8 @@ const FileLookUp = {
     [SpriteKey.BALL_CHIP]: '../../assets/images/Ball_chip.png',
     [SpriteKey.BALL_LEMON]: '../../assets/images/Ball_lemon.png',
     [SpriteKey.BALL_YINGYANG]: '../../assets/images/Ball_yingyang.png',
-    [SpriteKey.BUTTON_BLUE_IDLE]: '../../assets/images/Button_blue_idle.png',
-    [SpriteKey.BUTTON_BLUE_CLICKED]: '../../assets/images/Button_blue_clicked.png',
+    [SpriteKey.BUTTON_IDLE]: '../../assets/images/Button_idle.png',
+    [SpriteKey.BUTTON_CLICKED]: '../../assets/images/Button_clicked.png',
     [SpriteKey.GEM]: '../../assets/images/Gem.png',
 }
 

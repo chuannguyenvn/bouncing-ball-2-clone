@@ -62,8 +62,8 @@ class LoadScene extends Scene
         PreloadHelper.preloadSprite(this, SpriteKey.BALL_CHIP)
         PreloadHelper.preloadSprite(this, SpriteKey.BALL_LEMON)
         PreloadHelper.preloadSprite(this, SpriteKey.BALL_YINGYANG)
-        PreloadHelper.preloadSprite(this, SpriteKey.BUTTON_BLUE_IDLE)
-        PreloadHelper.preloadSprite(this, SpriteKey.BUTTON_BLUE_CLICKED)
+        PreloadHelper.preloadSprite(this, SpriteKey.BUTTON_IDLE)
+        PreloadHelper.preloadSprite(this, SpriteKey.BUTTON_CLICKED)
 
         // for (let i = 0; i < 500; i++) this.load.image("logo" + i, FileLookUp[SpriteKey.GEM])
     }

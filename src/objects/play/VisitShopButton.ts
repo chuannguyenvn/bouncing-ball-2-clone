@@ -8,15 +8,17 @@ class VisitShopButton extends Button<PlayScene>
     private playScene: PlayScene
 
     constructor(scene: PlayScene) {
-        super(scene, SpriteKey.BUTTON_BLUE_IDLE, SpriteKey.BUTTON_BLUE_IDLE, SpriteKey.BUTTON_BLUE_CLICKED)
+        super(scene, SpriteKey.BUTTON_IDLE, SpriteKey.BUTTON_IDLE, SpriteKey.BUTTON_CLICKED)
         this.playScene = scene
 
-        this.setPosition(100, 100)
+        this.setPosition(70, 40)
         this.setDepth(100)
 
         this.on(GAMEOBJECT_POINTER_UP, () => {
             this.playScene.visitShop()
         })
+        
+        this.text.text = "Shop"
     }
 }
 

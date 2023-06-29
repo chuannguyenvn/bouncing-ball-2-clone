@@ -8,8 +8,8 @@
     BALL_CHIP = 'ball-chip',
     BALL_LEMON = 'ball-lemon',
     BALL_YINGYANG = 'ball-yingyang',
-    BUTTON_BLUE_IDLE = 'button-blue-idle',
-    BUTTON_BLUE_CLICKED = 'button-blue-clicked',
+    BUTTON_IDLE = 'button-idle',
+    BUTTON_CLICKED = 'button-clicked',
 }
 
 export default SpriteKey
