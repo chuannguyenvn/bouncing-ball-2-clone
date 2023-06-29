@@ -1,4 +1,4 @@
-﻿import Phaser from "phaser"
+import Phaser from "phaser"
 import SceneKey from "../configs/SceneKey"
 import Ball from "../objects/play/Ball"
 import StateMachine from "../utilities/StateMachine"

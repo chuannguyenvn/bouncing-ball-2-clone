@@ -28,10 +28,6 @@ class ShopScene extends Phaser.Scene
             .onExit(-1, () => GameManager.sceneManager.stop(this))
     }
 
-    preload(): void {
-
-    }
-
     create(): void {
         this.matter.world.setBounds(0, 0, this.scale.width, this.scale.height, 64, true, true, false, true)
 
@@ -51,7 +47,7 @@ class ShopScene extends Phaser.Scene
             cellWidth: 75,
             cellHeight: 75,
             x: -50,
-            y: 100,
+            y: 300,
         })
 
         this.shopItems.forEach(shopItem => shopItem.alignText())
@@ -116,12 +112,12 @@ class ShopScene extends Phaser.Scene
         prev.setDisplaySize(Constants.BALL_RADIUS * 2, Constants.BALL_RADIUS * 2)
 
         this.matter.add.worldConstraint(bridge[0].body as BodyType, 2, 0.9, {
-            pointA: { x: 0, y: 600 },
+            pointA: { x: 0, y: 50 },
             pointB: { x: -25, y: 0 }
         });
 
         this.matter.add.worldConstraint(bridge[bridge.length - 1].body as BodyType, 2, 0.9, {
-            pointA: { x: this.scale.width, y: 600 },
+            pointA: { x: this.scale.width, y: 50 },
             pointB: { x: 25, y: 0 }
         });
     }
