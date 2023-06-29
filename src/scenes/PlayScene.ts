@@ -71,9 +71,8 @@ class PlayScene extends Phaser.Scene
         }
         else
         {
-            this.cameras.main.pan(0, this.scale.height / 2, 1000, Phaser.Math.Easing.Sine.InOut, false, (_, progress) => {
-                if (progress === 1) this.cameras.main.startFollow(this.ball, false, 0.9, 0)
-            })
+            this.cameras.main.startFollow(this.ball, false, 0.9, 0)
+            
         }
         this.cameras.main.setBounds(-1000, 0, 100000, 0)
 
