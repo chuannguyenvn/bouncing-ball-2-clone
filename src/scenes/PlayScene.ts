@@ -147,8 +147,11 @@ class PlayScene extends Phaser.Scene
     }
 
     private handleGemsCollected(): void {
-        if (!localStorage.getItem(Constants.GEMS_COLLECTED_STORAGE_KEY))
+        console.log("aaaaa: " + localStorage.getItem(Constants.GEMS_COLLECTED_STORAGE_KEY))
+        if (localStorage.getItem(Constants.GEMS_COLLECTED_STORAGE_KEY) === 'NaN')
             localStorage.setItem(Constants.GEMS_COLLECTED_STORAGE_KEY, '0')
+        console.log("aaaaa: " + localStorage.getItem(Constants.GEMS_COLLECTED_STORAGE_KEY))
+
         const currentGems = parseInt(localStorage.getItem(Constants.GEMS_COLLECTED_STORAGE_KEY) as string)
         localStorage.setItem(Constants.GEMS_COLLECTED_STORAGE_KEY, (currentGems + this.collectedGems).toString())
         console.log("Gems collected: " + localStorage.getItem(Constants.GEMS_COLLECTED_STORAGE_KEY))

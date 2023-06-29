@@ -7,6 +7,7 @@ import Phaser from "phaser"
 import {BodyType} from "matter"
 import GameObjectType from "../configs/GameObjectType"
 import Constants from "../configs/Constants"
+import Gem from "../objects/play/Gem"
 import CollisionStartEvent = Phaser.Physics.Matter.Events.CollisionStartEvent
 import Text = Phaser.GameObjects.Text
 import Image = Phaser.GameObjects.Image
@@ -15,7 +16,7 @@ class ShopScene extends Phaser.Scene
 {
     private shopItems: ShopItem[] = []
     private gemCountText: Text
-    private gemImage: Image
+    private gems: Gem[] = []
 
     constructor() {
         super({key: SceneKey.SHOP})
@@ -41,8 +42,6 @@ class ShopScene extends Phaser.Scene
         this.shopItems.push(new ShopItem(this, SpriteKey.BALL_CHIP, 3))
         this.shopItems.push(new ShopItem(this, SpriteKey.BALL_LEMON, 3))
         this.shopItems.push(new ShopItem(this, SpriteKey.BALL_YINGYANG, 3))
-
-        this.shopItems[0].purchase()
 
         Phaser.Actions.GridAlign(this.shopItems, {
             width: -1,
@@ -86,9 +85,7 @@ class ShopScene extends Phaser.Scene
         this.gemCountText.setFont('100px calibri')
         this.gemCountText.setOrigin(0.5)
         this.gemCountText.setDepth(-100)
-
-        this.gemImage = this.add.image(this.scale.width / 2, this.scale.height / 2 + 100, SpriteKey.GEM)
-
+        
         const bridge: Image[] = []
 
         const group = this.matter.world.nextGroup(true)
@@ -128,10 +125,24 @@ class ShopScene extends Phaser.Scene
             pointA: {x: this.scale.width, y: 50},
             pointB: {x: 25, y: 0}
         })
+
+        const initialGemCount = parseInt(localStorage.getItem(Constants.GEMS_COLLECTED_STORAGE_KEY) as string)
+        for (let i = 0; i < initialGemCount; i++)
+        {
+            const gem = new Gem(this, undefined, false)
+            gem.setPosition(Phaser.Math.Between(0, this.scale.width), 0)
+            this.gems.push(gem)
+        }
+        this.gemCountText.text = initialGemCount.toString()
     }
 
     public updateGemCount(value: number) {
         if (this.gemCountText) this.gemCountText.text = value.toString()
+        for (let i = this.gems.length - 1; i > this.gems.length - value; i--)
+        {
+            this.gems[i].destroy()
+            this.gems.pop()
+        }
     }
 }
 
