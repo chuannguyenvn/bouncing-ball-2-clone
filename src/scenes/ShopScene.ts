@@ -60,10 +60,10 @@ class ShopScene extends Phaser.Scene
             Phaser.Physics.Matter.Events.COLLISION_START,
             (event: CollisionStartEvent, bodyA: BodyType, bodyB: BodyType) => {
                 if (bodyA.gameObject && bodyB.gameObject && ((
-                    bodyA.gameObject.type === GameObjectType.SHOP_BALL &&
-                    bodyB.gameObject.type === GameObjectType.SHOP_CEILING) || (
                     bodyA.gameObject.type === GameObjectType.SHOP_CEILING &&
-                    bodyB.gameObject.type === GameObjectType.SHOP_BALL)))
+                    (bodyB.gameObject.type === GameObjectType.SHOP_BALL || bodyB.gameObject.type === GameObjectType.GEM)) || (
+                    bodyA.gameObject.type === GameObjectType.SHOP_CEILING &&
+                    (bodyB.gameObject.type === GameObjectType.SHOP_BALL || bodyB.gameObject.type === GameObjectType.GEM))))
                 {
                     if (bodyA.gameObject.type === GameObjectType.SHOP_BALL)
                     {
@@ -85,7 +85,7 @@ class ShopScene extends Phaser.Scene
         this.gemCountText.setFont('100px calibri')
         this.gemCountText.setOrigin(0.5)
         this.gemCountText.setDepth(-100)
-        
+
         const bridge: Image[] = []
 
         const group = this.matter.world.nextGroup(true)
@@ -101,7 +101,7 @@ class ShopScene extends Phaser.Scene
         )
         for (var i = 0; i < 15; i++)
         {
-            var ball = this.matter.add.image(x, 600, SpriteKey.BALL_DEFAULT, undefined, {
+            var ball = this.matter.add.image(x, 50, SpriteKey.BALL_DEFAULT, undefined, {
                 shape: 'circle',
                 mass: 0.1,
                 circleRadius: 2,
@@ -127,7 +127,6 @@ class ShopScene extends Phaser.Scene
         })
 
         const initialGemCount = parseInt(localStorage.getItem(Constants.GEMS_COLLECTED_STORAGE_KEY) as string)
-        console.log(initialGemCount)
         for (let i = 0; i < initialGemCount; i++)
         {
             const gem = new Gem(this, undefined, false)
@@ -143,7 +142,6 @@ class ShopScene extends Phaser.Scene
         {
             const gem = this.gems.pop() as Gem
             gem.destroy()
-            console.log('aaaaaaaaaaaaaaaaaaaaaaaaa')
         }
     }
 }

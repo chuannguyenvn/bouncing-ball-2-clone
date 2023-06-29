@@ -7,7 +7,7 @@ class ChooseBallZone extends Phaser.Physics.Matter.Image
     private shopScene: ShopScene
 
     constructor(scene: ShopScene) {
-        super(scene.matter.world, scene.scale.width / 2, -100, '')
+        super(scene.matter.world, scene.scale.width / 2, -200, '')
         this.shopScene = scene
         this.shopScene.add.existing(this)
 
