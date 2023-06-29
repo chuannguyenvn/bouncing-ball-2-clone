@@ -37,7 +37,7 @@ class Ball extends Phaser.Physics.Matter.Sprite
                     if (bodyB.gameObject.type === GameObjectType.PLATFORM_MIDDLE)
                     {
                         this.playScene.addScore(2)
-                        this.playScene.background.flashColor(0xbbffbb)
+                        // this.playScene.background.flashColor(0xbbffbb)
                     }
                     else
                     {

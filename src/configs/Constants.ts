@@ -13,6 +13,7 @@ const Constants = {
     GEMS_COLLECTED_STORAGE_KEY: 'gems-collected',
     SCREENSHAKE_DURATION: 100,
     SCREENSHAKE_STRENGTH: 0.0075,
+    GEM_SPAWN_CHANCE: 0.25,
 }
 
 export default Constants

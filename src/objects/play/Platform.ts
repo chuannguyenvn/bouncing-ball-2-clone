@@ -45,7 +45,7 @@ class Platform extends Phaser.GameObjects.GameObject
         this.platformRight.setup(xPosition, yPosition, width)
         this.platformMiddle.setup(xPosition, yPosition, width)
 
-        if (Math.random() < 0.9)
+        if (Math.random() < Constants.GEM_SPAWN_CHANCE)
         {
             this.gem.setPosition(xPosition, yPosition - 25)
         }
