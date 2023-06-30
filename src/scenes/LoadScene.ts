@@ -3,8 +3,9 @@ import SceneKey from "../configs/SceneKey"
 import PreloadHelper from "../utilities/PreloadHelper"
 import SpriteKey from "../configs/SpriteKey"
 import Constants from "../configs/Constants"
-import {GameManager, GameState} from "../managers/GameManager"
+import GameManager from "../managers/GameManager"
 import AudioKey from "../configs/AudioKey"
+import GameState from "../states/GameState"
 
 
 class LoadScene extends Scene

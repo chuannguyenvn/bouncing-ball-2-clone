@@ -1,13 +1,6 @@
 ﻿import StateMachine from "../utilities/StateMachine"
 import SpriteKey from "../configs/SpriteKey"
-
-enum GameState
-{
-    BOOT,
-    LOADING,
-    PLAY,
-    SHOP,
-}
+import GameState from "../states/GameState"
 
 class GameManager
 {
@@ -17,4 +10,4 @@ class GameManager
     public static isMute: boolean = false
 }
 
-export {GameManager, GameState}
+export default GameManager

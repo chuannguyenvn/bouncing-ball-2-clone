@@ -1,7 +1,7 @@
 ﻿import Button from "../prefabs/Button"
 import PlayScene from "../../scenes/PlayScene"
 import SpriteKey from "../../configs/SpriteKey"
-import {GameManager} from "../../managers/GameManager"
+import GameManager from "../../managers/GameManager"
 import GAMEOBJECT_POINTER_UP = Phaser.Input.Events.GAMEOBJECT_POINTER_UP
 
 class MuteButton extends Button<PlayScene>

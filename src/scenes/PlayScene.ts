@@ -8,7 +8,7 @@ import ScoreText from "../objects/play/ScoreText"
 import {ParamGameEvent} from "../utilities/Event"
 import Constants from "../configs/Constants"
 import VisitShopButton from "../objects/play/VisitShopButton"
-import {GameManager, GameState} from "../managers/GameManager"
+import GameManager from "../managers/GameManager"
 import Background from "../objects/play/Background"
 import RestartButton from "../objects/play/RestartButton"
 import HighScoreText from "../objects/play/HighScoreText"
@@ -17,6 +17,7 @@ import MuteButton from "../objects/play/MuteButton"
 import Vector2 = Phaser.Math.Vector2
 import POINTER_UP = Phaser.Input.Events.POINTER_UP
 import WebAudioSound = Phaser.Sound.WebAudioSound
+import GameState from "../states/GameState"
 
 class PlayScene extends Phaser.Scene
 {
@@ -40,6 +41,7 @@ class PlayScene extends Phaser.Scene
     private startedPlaying: boolean = false
 
     public isPressingButton: boolean = false
+    public allowPlay: boolean = false
 
     constructor() {
         super({key: SceneKey.PLAY})
@@ -59,9 +61,9 @@ class PlayScene extends Phaser.Scene
     }
 
     create(): void {
-        this.matter.world.update60Hz()
-        
         this.startedPlaying = false
+        this.isPressingButton = false
+        this.allowPlay = false
         this.stateMachine = new StateMachine<PlayState>(PlayState.INIT)
         this.scoreChanged = new ParamGameEvent<number>()
         this.currentScore = -2
@@ -99,12 +101,21 @@ class PlayScene extends Phaser.Scene
                 this.isPressingButton = false
                 return
             }
+            if (!this.allowPlay) return
             this.startPlay()
         })
 
         const spaceBar = this.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)
 
-        spaceBar?.on(Phaser.Input.Keyboard.Events.DOWN, () => this.startPlay())
+        spaceBar?.on(Phaser.Input.Keyboard.Events.DOWN, () => {
+            if (this.isPressingButton)
+            {
+                this.isPressingButton = false
+                return
+            }
+            if (!this.allowPlay) return
+            this.startPlay()
+        })
         this.stateMachine.configure(PlayState.MOVING).onEntry(-1, () => {
             this.tweens.add({
                 targets: this.cameras.main.followOffset,
@@ -138,7 +149,7 @@ class PlayScene extends Phaser.Scene
 
         this.gemSound = this.sound.add(AudioKey.GEM) as WebAudioSound
     }
-    
+
     public addScore(amount: number): void {
         this.currentScore += amount
         this.cameras.main.shake(Constants.SCREENSHAKE_DURATION, new Vector2(0, Constants.SCREENSHAKE_STRENGTH))

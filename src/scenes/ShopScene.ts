@@ -1,7 +1,7 @@
 ﻿import SceneKey from "../configs/SceneKey"
 import ShopItem from "../objects/shop/ShopItem"
 import SpriteKey from "../configs/SpriteKey"
-import {GameManager, GameState} from "../managers/GameManager"
+import GameManager from "../managers/GameManager"
 import ChooseBallZone from "../objects/shop/ChooseBallZone"
 import Phaser from "phaser"
 import {BodyType} from "matter"
@@ -11,6 +11,7 @@ import Gem from "../objects/play/Gem"
 import CollisionStartEvent = Phaser.Physics.Matter.Events.CollisionStartEvent
 import Text = Phaser.GameObjects.Text
 import Image = Phaser.GameObjects.Image
+import GameState from "../states/GameState"
 
 class ShopScene extends Phaser.Scene
 {

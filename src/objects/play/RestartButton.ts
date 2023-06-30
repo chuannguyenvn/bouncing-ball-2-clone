@@ -1,6 +1,7 @@
 import Button from "../prefabs/Button"
 import PlayScene from "../../scenes/PlayScene"
-import {GameManager, GameState} from "../../managers/GameManager"
+import GameManager from "../../managers/GameManager"
+import GameState from "../../states/GameState"
 
 class RestartButton extends Button<PlayScene>
 {

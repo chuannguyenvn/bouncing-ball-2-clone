@@ -6,7 +6,7 @@ import GameObjectType from "../../configs/GameObjectType"
 import PlayState from "../../states/PlayState"
 import {PlatformComponent} from "./PlatformComponent"
 import Gem from "./Gem"
-import {GameManager} from "../../managers/GameManager"
+import GameManager from "../../managers/GameManager"
 import {GameEvent, ParamGameEvent} from "../../utilities/Event"
 import CollisionStartEvent = Phaser.Physics.Matter.Events.CollisionStartEvent
 import Tween = Phaser.Tweens.Tween
@@ -99,6 +99,7 @@ class Ball extends Phaser.Physics.Matter.Sprite
         if (this.playScene.isWelcomingPlayer)
         {
             this.setPosition(Constants.BALL_START_POSITION.x, Constants.BALL_START_POSITION.y)
+            this.playScene.allowPlay = true
         }
         else
         {
@@ -109,7 +110,7 @@ class Ball extends Phaser.Physics.Matter.Sprite
                 duration: 700,
                 delay: 1000,
                 ease: Phaser.Math.Easing.Sine.Out,
-                // onComplete: () => this.playScene.cameras.main.startFollow()
+                onComplete: () => this.playScene.allowPlay = true
             })
         }
     }

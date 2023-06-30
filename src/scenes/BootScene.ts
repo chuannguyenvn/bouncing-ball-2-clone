@@ -2,7 +2,8 @@
 import SceneKey from "../configs/SceneKey"
 import PreloadHelper from "../utilities/PreloadHelper"
 import SpriteKey from "../configs/SpriteKey"
-import {GameManager, GameState} from "../managers/GameManager"
+import GameManager from "../managers/GameManager"
+import GameState from "../states/GameState"
 
 class BootScene extends Scene
 {
