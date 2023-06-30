@@ -11,6 +11,7 @@ class LoadScene extends Scene
 {
     private progressBar: Phaser.GameObjects.Graphics
     private ballImage: Phaser.GameObjects.Image
+    private title: Phaser.GameObjects.Text
 
     constructor() {
         super({key: SceneKey.LOAD})

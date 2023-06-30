@@ -59,6 +59,8 @@ class PlayScene extends Phaser.Scene
     }
 
     create(): void {
+        this.matter.world.update60Hz()
+        
         this.startedPlaying = false
         this.stateMachine = new StateMachine<PlayState>(PlayState.INIT)
         this.scoreChanged = new ParamGameEvent<number>()
@@ -136,7 +138,7 @@ class PlayScene extends Phaser.Scene
 
         this.gemSound = this.sound.add(AudioKey.GEM) as WebAudioSound
     }
-
+    
     public addScore(amount: number): void {
         this.currentScore += amount
         this.cameras.main.shake(Constants.SCREENSHAKE_DURATION, new Vector2(0, Constants.SCREENSHAKE_STRENGTH))
