@@ -56,6 +56,7 @@ class LoadScene extends Scene
 
     private loadAssets(): void {
         PreloadHelper.preloadSprite(this, SpriteKey.SQUARE)
+        PreloadHelper.preloadSprite(this, SpriteKey.CIRCLE)
         PreloadHelper.preloadSprite(this, SpriteKey.GRADIENT)
         PreloadHelper.preloadSprite(this, SpriteKey.GEM)
         PreloadHelper.preloadSprite(this, SpriteKey.BALL_DEFAULT)

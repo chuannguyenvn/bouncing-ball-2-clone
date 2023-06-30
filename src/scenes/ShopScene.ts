@@ -99,27 +99,29 @@ class ShopScene extends Phaser.Scene
         const group = this.matter.world.nextGroup(true)
 
         let x = 0
-        let prev = this.matter.add.image(x, 600, SpriteKey.BALL_DEFAULT, undefined, {
+        let prev = this.matter.add.image(x, 600, SpriteKey.CIRCLE, undefined, {
             shape: 'circle',
             mass: 0.1,
             circleRadius: 1
         })
         prev.setDisplaySize(Constants.BALL_RADIUS * 2, Constants.BALL_RADIUS * 2)
+        prev.setTint(0xaaaaaa)
         bridge.push(prev)
         prev.setAngularSpeed(Phaser.Math.Between(-0.1, 0.1))
         for (let i = 0; i < 10; i++)
         {
-            const ball = this.matter.add.image(x, 50, SpriteKey.BALL_DEFAULT, undefined, {
+            const ball = this.matter.add.image(x, 50, SpriteKey.CIRCLE, undefined, {
                 shape: 'circle',
                 mass: 0.1,
                 circleRadius: 1,
                 collisionFilter: {group: group}
             })
             bridge.push(ball)
-            this.matter.add.joint(prev.body as BodyType, ball.body as BodyType, 25, 0.8)
+            this.matter.add.joint(prev.body as BodyType, ball.body as BodyType, 35, 0.8)
             prev = ball
             prev.setDisplaySize(Constants.BALL_RADIUS * 2, Constants.BALL_RADIUS * 2)
             prev.setAngularSpeed(Phaser.Math.Between(-0.1, 0.1))
+            prev.setTint(0xaaaaaa)
 
             x += 30
         }

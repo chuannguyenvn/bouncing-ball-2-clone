@@ -3,6 +3,7 @@ import AudioKey from "./AudioKey"
 
 const FileLookUp = {
     [SpriteKey.SQUARE]: './assets/images/Square.png',
+    [SpriteKey.CIRCLE]: './assets/images/Circle.png',
     [SpriteKey.GRADIENT]: './assets/images/Gradient.png',
     [SpriteKey.BALL_DEFAULT]: './assets/images/Ball_Default.png',
     [SpriteKey.BALL_HAPPY]: './assets/images/Ball_happy.png',

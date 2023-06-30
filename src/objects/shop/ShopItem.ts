@@ -39,9 +39,10 @@ class ShopItem extends Phaser.Physics.Matter.Sprite
         }
         else
         {
-            this.priceText = this.shopScene.add.text(this.x, this.y + 50, this.price.toString())
-            this.priceText.setColor('222222')
+            this.priceText = this.shopScene.add.text(this.x, this.y + 15, this.price.toString())
             this.priceText.setOrigin(0.5)
+            this.priceText.setFont('20px calibri')
+            this.priceText.setColor('222222')
         }
 
         this.setInteractive()
@@ -73,7 +74,7 @@ class ShopItem extends Phaser.Physics.Matter.Sprite
     private releaseBall(): void {
         this.setStatic(false)
         this.setVelocity(Phaser.Math.Between(-1, 1), Phaser.Math.Between(-3, -5))
-        this.setAngularVelocity(Phaser.Math.Between(-0.5, 0.5))
+        this.setAngularVelocity(Phaser.Math.Between(-0.1, 0.1))
     }
 }
 

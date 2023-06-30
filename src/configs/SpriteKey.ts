@@ -1,6 +1,7 @@
 ﻿enum SpriteKey
 {
     SQUARE = 'square',
+    CIRCLE = 'circle',
     GRADIENT = 'gradient',
     GEM = 'gem-sprite',
     BALL_DEFAULT = 'ball-default',
