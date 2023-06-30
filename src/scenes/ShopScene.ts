@@ -36,6 +36,7 @@ class ShopScene extends Phaser.Scene
         new ChooseBallZone(this)
 
         this.shopItems = []
+        this.gems = []
 
         this.shopItems.push(new ShopItem(this, SpriteKey.BALL_HAPPY, 3))
         this.shopItems.push(new ShopItem(this, SpriteKey.BALL_CHIP, 3))
