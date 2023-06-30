@@ -9,9 +9,10 @@ const GAME_CONFIG: Phaser.Types.Core.GameConfig = {
     width: 450,
     height: 800,
     parent: 'game',
-    // scale: {
-    //     mode: Phaser.Scale.RESIZE,
-    // },
+    scale: {
+        mode: Phaser.Scale.FIT,
+        autoCenter: Phaser.Scale.CENTER_BOTH
+    },
     scene: [BootScene, LoadScene, PlayScene, ShopScene],
     backgroundColor: 0xffffff,
     physics: {
