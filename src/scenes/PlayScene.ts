@@ -76,7 +76,7 @@ class PlayScene extends Phaser.Scene
         this.restartButton.setVisible(false)
         this.muteButton = new MuteButton(this)
 
-        this.matter.world.setBounds(0, 0, 100000, this.scale.height, 64, false, false, false)
+        this.matter.world.setBounds(0, 0, 100000, this.scale.height + 100, 64, false, false, false)
 
         this.cameras.main.scrollX = -1000
 
