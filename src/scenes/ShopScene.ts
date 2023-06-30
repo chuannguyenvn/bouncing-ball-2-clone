@@ -65,14 +65,19 @@ class ShopScene extends Phaser.Scene
                     bodyA.gameObject.type === GameObjectType.SHOP_CEILING &&
                     (bodyB.gameObject.type === GameObjectType.SHOP_BALL || bodyB.gameObject.type === GameObjectType.GEM))))
                 {
-                    if (bodyA.gameObject.type === GameObjectType.SHOP_BALL)
+                    if (bodyA.gameObject.type === GameObjectType.SHOP_CEILING)
                     {
-                        GameManager.currentSkin = (bodyA.gameObject as ShopItem).spriteKey
+                        if (bodyB.gameObject instanceof ShopItem)
+                            GameManager.currentSkin = (bodyB.gameObject as ShopItem).spriteKey
+                        else
+                            GameManager.currentSkin = SpriteKey.GEM
                     }
                     else
                     {
-                        GameManager.currentSkin = (bodyB.gameObject as ShopItem).spriteKey
-                    }
+                        if (bodyA.gameObject instanceof ShopItem)
+                            GameManager.currentSkin = (bodyA.gameObject as ShopItem).spriteKey
+                        else
+                            GameManager.currentSkin = SpriteKey.GEM                    }
 
                     this.cameras.main.pan(1000 + this.cameras.main.scrollX, this.scale.height / 2, 1000, Phaser.Math.Easing.Sine.InOut, false, (_, progress) => {
                         if (progress === 1) GameManager.stateMachine.changeState(GameState.PLAY)
