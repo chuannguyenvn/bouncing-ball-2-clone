@@ -1,6 +1,5 @@
 ﻿import Phaser, {Scene} from "phaser"
 import SpriteKey from "../../configs/SpriteKey"
-import PlayScene from "../../scenes/PlayScene"
 import GameObjectType from "../../configs/GameObjectType"
 import Platform from "./Platform"
 

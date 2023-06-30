@@ -9,8 +9,8 @@ import Text = Phaser.GameObjects.Text
 class ShopItem extends Phaser.Physics.Matter.Sprite
 {
     public readonly price: number
-    private shopScene: ShopScene
     public spriteKey: SpriteKey
+    private shopScene: ShopScene
     private isPurchased: boolean = false
 
     private priceText: Text
@@ -28,7 +28,7 @@ class ShopItem extends Phaser.Physics.Matter.Sprite
 
         this.price = price
         if (price < 0) this.isPurchased = true
-        
+
         this.setDisplaySize(Constants.BALL_RADIUS * 2, Constants.BALL_RADIUS * 2)
         this.setCircle(Constants.BALL_RADIUS)
         this.setStatic(!this.isPurchased)
@@ -65,15 +65,15 @@ class ShopItem extends Phaser.Physics.Matter.Sprite
         this.shopScene.updateGemCount(newGemCount)
     }
 
+    public alignText(): void {
+        if (this.isPurchased) return
+        this.priceText.setPosition(this.x, this.y + 50)
+    }
+
     private releaseBall(): void {
         this.setStatic(false)
         this.setVelocity(Phaser.Math.Between(-1, 1), Phaser.Math.Between(-3, -5))
         this.setAngularVelocity(Phaser.Math.Between(-0.5, 0.5))
-    }
-
-    public alignText(): void {
-        if (this.isPurchased) return
-        this.priceText.setPosition(this.x, this.y + 50)
     }
 }
 

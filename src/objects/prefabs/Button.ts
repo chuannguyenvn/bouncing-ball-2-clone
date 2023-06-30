@@ -1,12 +1,11 @@
 ﻿import Phaser, {Scene} from "phaser"
 import SpriteKey from "../../configs/SpriteKey"
+import Constants from "../../configs/Constants"
 import GAMEOBJECT_POINTER_OUT = Phaser.Input.Events.GAMEOBJECT_POINTER_OUT
 import GAMEOBJECT_POINTER_OVER = Phaser.Input.Events.GAMEOBJECT_POINTER_OVER
 import GAMEOBJECT_POINTER_DOWN = Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN
 import GAMEOBJECT_POINTER_UP = Phaser.Input.Events.GAMEOBJECT_POINTER_UP
 import Text = Phaser.GameObjects.Text
-import Constants from "../../configs/Constants"
-import Color = Phaser.Display.Color
 
 class Button<S extends Scene> extends Phaser.GameObjects.NineSlice
 {
@@ -40,7 +39,7 @@ class Button<S extends Scene> extends Phaser.GameObjects.NineSlice
         this.text?.setPosition(x, y)
         return super.setPosition(x, y, z, w)
     }
-    
+
     public setVisible(value: boolean): this {
         this.text?.setVisible(value)
         return super.setVisible(value)

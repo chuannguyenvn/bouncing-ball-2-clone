@@ -12,7 +12,7 @@ class RestartButton extends Button<PlayScene>
         this.setDepth(100)
         this.setSize(700, 10)
         this.setScale(0.15)
-        
+
         this.on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
             scene.isWelcomingPlayer = true
             GameManager.stateMachine.changeState(GameState.PLAY)

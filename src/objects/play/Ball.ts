@@ -1,5 +1,4 @@
 ﻿import Phaser from "phaser"
-import SpriteKey from "../../configs/SpriteKey"
 import Constants from "../../configs/Constants"
 import PlayScene from "../../scenes/PlayScene"
 import {BodyType} from "matter"
@@ -7,17 +6,16 @@ import GameObjectType from "../../configs/GameObjectType"
 import PlayState from "../../states/PlayState"
 import {PlatformComponent} from "./PlatformComponent"
 import Gem from "./Gem"
-import CollisionStartEvent = Phaser.Physics.Matter.Events.CollisionStartEvent
-import Tween = Phaser.Tweens.Tween
 import {GameManager} from "../../managers/GameManager"
 import {GameEvent, ParamGameEvent} from "../../utilities/Event"
-import Color = Phaser.Display.Color
+import CollisionStartEvent = Phaser.Physics.Matter.Events.CollisionStartEvent
+import Tween = Phaser.Tweens.Tween
 
 class Ball extends Phaser.Physics.Matter.Sprite
 {
     public hitCenter: ParamGameEvent<number> = new ParamGameEvent<number>()
     public hitEdge: GameEvent = new GameEvent()
-    
+
     private playScene: PlayScene
     private velocityTween: Tween
 
@@ -58,7 +56,7 @@ class Ball extends Phaser.Physics.Matter.Sprite
                         this.hitEdge.invoke()
                         platformComponent.glow(Constants.PLATFORM_HIT_EDGE_TINT)
                     }
-                    
+
                     platformComponent.platformParent.removeBody()
                     this.playScene.time.addEvent({
                         delay: 5, callback: () => {
@@ -66,7 +64,7 @@ class Ball extends Phaser.Physics.Matter.Sprite
                             this.setAngularVelocity(0.2)
                         }
                     })
-                    
+
                     Phaser.Math.RND.pick(this.playScene.jumpSounds).play()
                 }
                 else if (bodyB.gameObject && bodyB.gameObject.type === GameObjectType.GEM)

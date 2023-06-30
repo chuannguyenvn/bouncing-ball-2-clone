@@ -1,8 +1,8 @@
 ﻿import PlayScene from "../../scenes/PlayScene"
 import PlayState from "../../states/PlayState"
 import Phaser from "phaser"
-import Color = Phaser.Display.Color
 import Constants from "../../configs/Constants"
+import Color = Phaser.Display.Color
 
 
 class HighScoreText
@@ -25,7 +25,7 @@ class HighScoreText
             this.setVisible(true)
             this.setX(this.scene.cameras.main.scrollX + this.scene.scale.width / 2)
             this.text = localStorage.getItem(Constants.HIGH_SCORE_STORAGE_KEY) as string
-            
+
             this.playScene.tweens.addCounter({
                 from: 0,
                 to: 100,

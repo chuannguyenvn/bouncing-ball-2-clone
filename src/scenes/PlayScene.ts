@@ -31,12 +31,11 @@ class PlayScene extends Phaser.Scene
     public scoreText: ScoreText
     public highScoreText: HighScoreText
     public isWelcomingPlayer: boolean = true
+    public jumpSounds: WebAudioSound[] = []
+    public gemSound: WebAudioSound
     private visitShopButton: VisitShopButton
     private restartButton: RestartButton
     private startedPlaying: boolean = false
-
-    public jumpSounds: WebAudioSound[] = []
-    public gemSound: WebAudioSound
 
     constructor() {
         super({key: SceneKey.PLAY})
@@ -121,7 +120,7 @@ class PlayScene extends Phaser.Scene
         this.jumpSounds.push(this.sound.add(AudioKey.JUMP_1) as WebAudioSound)
         this.jumpSounds.push(this.sound.add(AudioKey.JUMP_2) as WebAudioSound)
         this.jumpSounds.push(this.sound.add(AudioKey.JUMP_3) as WebAudioSound)
-        
+
         this.gemSound = this.sound.add(AudioKey.GEM) as WebAudioSound
     }
 

@@ -65,7 +65,7 @@ class LoadScene extends Scene
         PreloadHelper.preloadSprite(this, SpriteKey.BALL_YINGYANG)
         PreloadHelper.preloadSprite(this, SpriteKey.BUTTON_IDLE)
         PreloadHelper.preloadSprite(this, SpriteKey.BUTTON_CLICKED)
-        
+
         PreloadHelper.preloadSound(this, AudioKey.JUMP_1)
         PreloadHelper.preloadSound(this, AudioKey.JUMP_2)
         PreloadHelper.preloadSound(this, AudioKey.JUMP_3)
