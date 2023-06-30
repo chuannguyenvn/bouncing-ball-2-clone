@@ -6,6 +6,7 @@ import Constants from "../configs/Constants"
 import GameManager from "../managers/GameManager"
 import AudioKey from "../configs/AudioKey"
 import GameState from "../states/GameState"
+import FileLookUp from "../configs/FileLookUp"
 
 
 class LoadScene extends Scene
@@ -23,6 +24,11 @@ class LoadScene extends Scene
     }
 
     preload(): void {
+        this.title = this.add.text(this.scale.width / 2, 200, "Bouncing Ball 2")
+        this.title.setFont('65px calibri')
+        this.title.setColor('#555555')
+        this.title.setOrigin(0.5)
+        
         this.loadAssets()
         this.showLoadingProgress()
     }
@@ -54,6 +60,13 @@ class LoadScene extends Scene
                 this.progressBar.destroy()
             }
         })
+        
+        this.tweens.add({
+            targets: this.title,
+            y:-100,
+            duration: 200,
+            ease: Phaser.Math.Easing.Back.In
+        })
     }
 
     private loadAssets(): void {
@@ -74,7 +87,7 @@ class LoadScene extends Scene
         PreloadHelper.preloadSound(this, AudioKey.JUMP_3)
         PreloadHelper.preloadSound(this, AudioKey.GEM)
 
-        // for (let i = 0; i < 500; i++) this.load.image("logo" + i, FileLookUp[SpriteKey.GEM])
+        for (let i = 0; i < 500; i++) this.load.image("logo" + i, FileLookUp[SpriteKey.GEM])
     }
 
     private showLoadingProgress(): void {
