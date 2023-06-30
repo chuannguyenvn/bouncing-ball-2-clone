@@ -1,4 +1,5 @@
 ﻿import SpriteKey from "./SpriteKey"
+import AudioKey from "./AudioKey"
 
 const FileLookUp = {
     [SpriteKey.SQUARE]: './assets/images/Square.png',
@@ -11,6 +12,10 @@ const FileLookUp = {
     [SpriteKey.BUTTON_IDLE]: './assets/images/Button_idle.png',
     [SpriteKey.BUTTON_CLICKED]: './assets/images/Button_clicked.png',
     [SpriteKey.GEM]: './assets/images/Gem.png',
+    [AudioKey.GEM]: './assets/sounds/Gem.wav',
+    [AudioKey.JUMP_1]: './assets/sounds/Jump_1.wav',
+    [AudioKey.JUMP_2]: './assets/sounds/Jump_2.wav',
+    [AudioKey.JUMP_3]: './assets/sounds/Jump_3.wav',
 }
 
 export default FileLookUp

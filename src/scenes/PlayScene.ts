@@ -11,10 +11,11 @@ import VisitShopButton from "../objects/play/VisitShopButton"
 import {GameManager, GameState} from "../managers/GameManager"
 import Background from "../objects/play/Background"
 import RestartButton from "../objects/play/RestartButton"
-import POINTER_DOWN = Phaser.Input.Events.POINTER_DOWN
+import HighScoreText from "../objects/play/HighScoreText"
+import AudioKey from "../configs/AudioKey"
 import Vector2 = Phaser.Math.Vector2
 import POINTER_UP = Phaser.Input.Events.POINTER_UP
-import HighScoreText from "../objects/play/HighScoreText"
+import WebAudioSound = Phaser.Sound.WebAudioSound
 
 class PlayScene extends Phaser.Scene
 {
@@ -33,6 +34,9 @@ class PlayScene extends Phaser.Scene
     private visitShopButton: VisitShopButton
     private restartButton: RestartButton
     private startedPlaying: boolean = false
+
+    public jumpSounds: WebAudioSound[] = []
+    public gemSound: WebAudioSound
 
     constructor() {
         super({key: SceneKey.PLAY})
@@ -67,7 +71,7 @@ class PlayScene extends Phaser.Scene
         this.visitShopButton = new VisitShopButton(this)
         this.restartButton = new RestartButton(this)
         this.restartButton.setVisible(false)
-        
+
         this.matter.world.setBounds(0, 0, 100000, this.scale.height, 64, false, false, false)
 
         this.cameras.main.scrollX = -1000
@@ -102,17 +106,23 @@ class PlayScene extends Phaser.Scene
         })
 
         this.stateMachine.configure(PlayState.MOVING).onExit(-1, this.handleLoseEntry.bind(this))
-        
-        this.stateMachine.configure(PlayState.LOSE).onEntry(-1, () =>{
+
+        this.stateMachine.configure(PlayState.LOSE).onEntry(-1, () => {
             this.restartButton.setVisible(true)
         })
 
-        this.stateMachine.configure(PlayState.LOSE).onExit(-1, () =>{
+        this.stateMachine.configure(PlayState.LOSE).onExit(-1, () => {
             this.restartButton.setVisible(false)
         })
 
         this.handleGemsCollected()
         this.handleHighScore()
+
+        this.jumpSounds.push(this.sound.add(AudioKey.JUMP_1) as WebAudioSound)
+        this.jumpSounds.push(this.sound.add(AudioKey.JUMP_2) as WebAudioSound)
+        this.jumpSounds.push(this.sound.add(AudioKey.JUMP_3) as WebAudioSound)
+        
+        this.gemSound = this.sound.add(AudioKey.GEM) as WebAudioSound
     }
 
     public addScore(amount: number): void {

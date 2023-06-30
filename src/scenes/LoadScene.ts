@@ -4,6 +4,7 @@ import PreloadHelper from "../utilities/PreloadHelper"
 import SpriteKey from "../configs/SpriteKey"
 import Constants from "../configs/Constants"
 import {GameManager, GameState} from "../managers/GameManager"
+import AudioKey from "../configs/AudioKey"
 
 
 class LoadScene extends Scene
@@ -64,6 +65,11 @@ class LoadScene extends Scene
         PreloadHelper.preloadSprite(this, SpriteKey.BALL_YINGYANG)
         PreloadHelper.preloadSprite(this, SpriteKey.BUTTON_IDLE)
         PreloadHelper.preloadSprite(this, SpriteKey.BUTTON_CLICKED)
+        
+        PreloadHelper.preloadSound(this, AudioKey.JUMP_1)
+        PreloadHelper.preloadSound(this, AudioKey.JUMP_2)
+        PreloadHelper.preloadSound(this, AudioKey.JUMP_3)
+        PreloadHelper.preloadSound(this, AudioKey.GEM)
 
         // for (let i = 0; i < 500; i++) this.load.image("logo" + i, FileLookUp[SpriteKey.GEM])
     }
