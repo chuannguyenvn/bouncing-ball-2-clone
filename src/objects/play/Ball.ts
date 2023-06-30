@@ -65,13 +65,20 @@ class Ball extends Phaser.Physics.Matter.Sprite
                         }
                     })
 
-                    Phaser.Math.RND.pick(this.playScene.jumpSounds).play()
+                    if (!GameManager.isMute)
+                    {
+                        Phaser.Math.RND.pick(this.playScene.jumpSounds).play()
+                    }
                 }
                 else if (bodyB.gameObject && bodyB.gameObject.type === GameObjectType.GEM)
                 {
                     this.playScene.collectedGems++
                     (bodyB.gameObject as Gem).platformParent.collectGem()
-                    this.playScene.gemSound.play()
+
+                    if (!GameManager.isMute)
+                    {
+                        this.playScene.gemSound.play()
+                    }
                 }
                 else
                 {

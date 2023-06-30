@@ -13,6 +13,7 @@ import Background from "../objects/play/Background"
 import RestartButton from "../objects/play/RestartButton"
 import HighScoreText from "../objects/play/HighScoreText"
 import AudioKey from "../configs/AudioKey"
+import MuteButton from "../objects/play/MuteButton"
 import Vector2 = Phaser.Math.Vector2
 import POINTER_UP = Phaser.Input.Events.POINTER_UP
 import WebAudioSound = Phaser.Sound.WebAudioSound
@@ -35,7 +36,10 @@ class PlayScene extends Phaser.Scene
     public gemSound: WebAudioSound
     private visitShopButton: VisitShopButton
     private restartButton: RestartButton
+    private muteButton: MuteButton
     private startedPlaying: boolean = false
+
+    public isPressingButton: boolean = false
 
     constructor() {
         super({key: SceneKey.PLAY})
@@ -70,6 +74,7 @@ class PlayScene extends Phaser.Scene
         this.visitShopButton = new VisitShopButton(this)
         this.restartButton = new RestartButton(this)
         this.restartButton.setVisible(false)
+        this.muteButton = new MuteButton(this)
 
         this.matter.world.setBounds(0, 0, 100000, this.scale.height, 64, false, false, false)
 
@@ -86,15 +91,18 @@ class PlayScene extends Phaser.Scene
         }
         this.cameras.main.setBounds(-1000, 0, 100000, 0)
 
-        this.input.on(POINTER_UP, () => this.startPlay())
+        this.input.on(POINTER_UP, () => {
+            if (this.isPressingButton)
+            {
+                this.isPressingButton = false
+                return
+            }
+            this.startPlay()
+        })
 
         const spaceBar = this.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)
 
         spaceBar?.on(Phaser.Input.Keyboard.Events.DOWN, () => this.startPlay())
-        this.stateMachine.configure(PlayState.INIT).onExit(-1, () => {
-            this.visitShopButton.setVisible(false)
-        })
-
         this.stateMachine.configure(PlayState.MOVING).onEntry(-1, () => {
             this.tweens.add({
                 targets: this.cameras.main.followOffset,
@@ -102,6 +110,11 @@ class PlayScene extends Phaser.Scene
                 duration: 400,
                 ease: 'Sine.out',
             })
+        })
+
+        this.stateMachine.configure(PlayState.INIT).onExit(-1, () => {
+            this.visitShopButton.setVisible(false)
+            this.muteButton.setVisible(false)
         })
 
         this.stateMachine.configure(PlayState.MOVING).onExit(-1, this.handleLoseEntry.bind(this))
