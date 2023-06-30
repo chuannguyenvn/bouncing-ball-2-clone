@@ -37,20 +37,21 @@ class ShopScene extends Phaser.Scene
 
         this.shopItems = []
 
-        this.shopItems.push(new ShopItem(this, SpriteKey.BALL_DEFAULT, -1))
         this.shopItems.push(new ShopItem(this, SpriteKey.BALL_HAPPY, 3))
         this.shopItems.push(new ShopItem(this, SpriteKey.BALL_CHIP, 3))
         this.shopItems.push(new ShopItem(this, SpriteKey.BALL_LEMON, 3))
         this.shopItems.push(new ShopItem(this, SpriteKey.BALL_YINGYANG, 3))
 
         Phaser.Actions.GridAlign(this.shopItems, {
-            width: -1,
-            height: 0,
-            cellWidth: 75,
-            cellHeight: 75,
+            width: 2,
+            height: 2,
+            cellWidth: 300,
+            cellHeight: 150,
             x: -50,
-            y: 300,
+            y: 175,
         })
+
+        this.shopItems.push(new ShopItem(this, SpriteKey.BALL_DEFAULT, -1))
 
         this.shopItems.forEach(shopItem => shopItem.alignText())
 
@@ -77,7 +78,8 @@ class ShopScene extends Phaser.Scene
                         if (bodyA.gameObject instanceof ShopItem)
                             GameManager.currentSkin = (bodyA.gameObject as ShopItem).spriteKey
                         else
-                            GameManager.currentSkin = SpriteKey.GEM                    }
+                            GameManager.currentSkin = SpriteKey.GEM
+                    }
 
                     this.cameras.main.pan(1000 + this.cameras.main.scrollX, this.scale.height / 2, 1000, Phaser.Math.Easing.Sine.InOut, false, (_, progress) => {
                         if (progress === 1) GameManager.stateMachine.changeState(GameState.PLAY)
@@ -99,23 +101,24 @@ class ShopScene extends Phaser.Scene
         let prev = this.matter.add.image(x, 600, SpriteKey.BALL_DEFAULT, undefined, {
             shape: 'circle',
             mass: 0.1,
-            circleRadius: 2
+            circleRadius: 1
         })
         prev.setDisplaySize(Constants.BALL_RADIUS * 2, Constants.BALL_RADIUS * 2)
-        bridge.push(prev
-        )
-        for (var i = 0; i < 15; i++)
+        bridge.push(prev)
+        prev.setAngularSpeed(Phaser.Math.Between(-0.1, 0.1))
+        for (let i = 0; i < 10; i++)
         {
-            var ball = this.matter.add.image(x, 50, SpriteKey.BALL_DEFAULT, undefined, {
+            const ball = this.matter.add.image(x, 50, SpriteKey.BALL_DEFAULT, undefined, {
                 shape: 'circle',
                 mass: 0.1,
-                circleRadius: 2,
+                circleRadius: 1,
                 collisionFilter: {group: group}
             })
             bridge.push(ball)
             this.matter.add.joint(prev.body as BodyType, ball.body as BodyType, 25, 0.8)
             prev = ball
             prev.setDisplaySize(Constants.BALL_RADIUS * 2, Constants.BALL_RADIUS * 2)
+            prev.setAngularSpeed(Phaser.Math.Between(-0.1, 0.1))
 
             x += 30
         }
@@ -139,10 +142,18 @@ class ShopScene extends Phaser.Scene
             this.gems.push(gem)
         }
         this.gemCountText.text = initialGemCount.toString()
+
+        this.updateGemCount(parseInt(localStorage.getItem(Constants.GEMS_COLLECTED_STORAGE_KEY) as string))
     }
 
     public updateGemCount(value: number) {
-        if (this.gemCountText) this.gemCountText.text = value.toString()
+        if (!isNaN(value)) this.gemCountText.text = value.toString()
+        else
+        {
+            this.gemCountText.text = '0'
+            return
+        }
+
         for (let i = this.gems.length - 1; i >= value; i--)
         {
             const gem = this.gems.pop() as Gem
