@@ -3,12 +3,25 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "",
+    "activeFile": "masterpiece-map.tmx",
     "expandedProjectPaths": [
     ],
+    "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
         "": {
             "scaleInDock": 1
+        },
+        "Square.tsx": {
+            "scaleInDock": 4,
+            "scaleInEditor": 1
+        },
+        "masterpiece-map.tmx": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 12213,
+                "y": 540.5
+            }
         }
     },
     "last.exportedFilePath": "C:/Users/chuan/WebstormProjects/bouncing-ball-2-clone/assets/tiled",
@@ -19,9 +32,13 @@
     "map.tileHeight": 8,
     "map.tileWidth": 8,
     "openFiles": [
+        "masterpiece-map.tmx",
+        "Square.tsx"
     ],
     "project": "masterpiece.tiled-project",
     "recentFiles": [
+        "Square.tsx",
+        "masterpiece-map.tmx"
     ],
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {
