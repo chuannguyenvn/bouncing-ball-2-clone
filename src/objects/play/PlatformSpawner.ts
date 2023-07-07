@@ -17,32 +17,32 @@ class PlatformSpawner
 
     constructor(scene: PlayScene) {
         this.playScene = scene
-
-        for (let i = 0; i < Constants.PLATFORM_POOL_SIZE; i++)
-        {
-            const platform = new Platform(scene)
-            platform.setup(1, -10000, 0)
-            platform.index = i
-            this.platforms.push(platform)
-        }
-
-        this.placeNextPlatform()
-        this.placeNextPlatform()
-        this.placeNextPlatform()
-        this.placeNextPlatform()
-        this.placeNextPlatform()
-
-        this.touchedPlatformIndex.subscribe((index) => {
-            const moveUntilIndex = (index - 2 + Constants.PLATFORM_POOL_SIZE) % Constants.PLATFORM_POOL_SIZE
-            while (this.currentPlatformIndex != moveUntilIndex)
-            {
-                this.placeNextPlatform()
-            }
-
-            this.currentWidth = Math.max(this.currentWidth * 0.975, 20)
-        })
-
-        this.easePlatformHeight()
+        //
+        // for (let i = 0; i < Constants.PLATFORM_POOL_SIZE; i++)
+        // {
+        //     const platform = new Platform(scene)
+        //     platform.setup(1, -10000, 0)
+        //     platform.index = i
+        //     this.platforms.push(platform)
+        // }
+        //
+        // this.placeNextPlatform()
+        // this.placeNextPlatform()
+        // this.placeNextPlatform()
+        // this.placeNextPlatform()
+        // this.placeNextPlatform()
+        //
+        // this.touchedPlatformIndex.subscribe((index) => {
+        //     const moveUntilIndex = (index - 2 + Constants.PLATFORM_POOL_SIZE) % Constants.PLATFORM_POOL_SIZE
+        //     while (this.currentPlatformIndex != moveUntilIndex)
+        //     {
+        //         this.placeNextPlatform()
+        //     }
+        //
+        //     this.currentWidth = Math.max(this.currentWidth * 0.975, 20)
+        // })
+        //
+        // this.easePlatformHeight()
     }
 
     public placeNextPlatform() {

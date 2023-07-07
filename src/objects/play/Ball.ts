@@ -28,7 +28,7 @@ class Ball extends Phaser.Physics.Matter.Sprite
 
         this.setDisplaySize(Constants.BALL_RADIUS * 2, Constants.BALL_RADIUS * 2)
         this.setCircle(Constants.BALL_RADIUS)
-        this.setMass(1)
+        this.setMass(0.01)
         this.setFriction(0, 0, 0)
         this.setStatic(true)
 
@@ -60,7 +60,7 @@ class Ball extends Phaser.Physics.Matter.Sprite
                     platformComponent.platformParent.removeBody()
                     this.playScene.time.addEvent({
                         delay: 5, callback: () => {
-                            this.setVelocity(Constants.BALL_X_VELOCITY, -7)
+                            this.setVelocity(Constants.BALL_X_VELOCITY, -8.5)
                             this.setAngularVelocity(0.2)
                         }
                     })
@@ -104,7 +104,7 @@ class Ball extends Phaser.Physics.Matter.Sprite
         else
         {
             this.playScene.tweens.add({
-                targets: this,
+                targets: [this],
                 x: Constants.BALL_START_POSITION.x,
                 y: Constants.BALL_START_POSITION.y,
                 duration: 700,
@@ -120,9 +120,9 @@ class Ball extends Phaser.Physics.Matter.Sprite
 
         this.velocityTween = this.playScene.tweens.addCounter({
             from: this.getVelocity().y,
-            to: 12,
+            to: 15,
             ease: 'expo.out',
-            duration: 1000,
+            duration: 600,
             onUpdate: (tween) => {
                 this.setVelocityY(tween.getValue())
             }

@@ -5,8 +5,7 @@ import Constants from "../../configs/Constants"
 import Color = Phaser.Display.Color
 
 
-class HighScoreText
-    extends Phaser.GameObjects.Text
+class HighScoreText extends Phaser.GameObjects.Text
 {
     private playScene: PlayScene
 

@@ -17,6 +17,8 @@ const FileLookUp = {
     [AudioKey.JUMP_1]: './assets/sounds/Jump_1.wav',
     [AudioKey.JUMP_2]: './assets/sounds/Jump_2.wav',
     [AudioKey.JUMP_3]: './assets/sounds/Jump_3.wav',
+    [AudioKey.MASTERPIECE]: './assets/sounds/kiet-tac.wav',
+    ['masterpiece-map']: './assets/tiled/masterpiece-map.json',
 }
 
 export default FileLookUp

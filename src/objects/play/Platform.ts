@@ -6,7 +6,7 @@ import {PlatformChildType, PlatformComponent} from "./PlatformComponent"
 import Constants from "../../configs/Constants"
 import Gem from "./Gem"
 
-class Platform extends Phaser.GameObjects.GameObject
+class Platform extends Phaser.GameObjects.Sprite
 {
     public index: number
 
@@ -21,9 +21,11 @@ class Platform extends Phaser.GameObjects.GameObject
     private gem: Gem
 
     constructor(scene: PlayScene) {
-        super(scene, GameObjectType.PLATFORM_PARENT)
+        super(scene, 0, 0, SpriteKey.SQUARE)
         this.scene.add.existing(this)
         this.playScene = scene
+
+        this.type = GameObjectType.PLATFORM_PARENT
 
         this.gradientColumn = scene.add.image(0, 0, SpriteKey.GRADIENT)
         this.gradientColumn.setOrigin(0.5, 0)
@@ -37,6 +39,9 @@ class Platform extends Phaser.GameObjects.GameObject
 
         this.playScene.ball.hitCenter.subscribe((color) => this.handleBallHitCenter(color))
         this.playScene.ball.hitEdge.subscribe(() => this.handleBallHitEdge())
+
+        this.playScene.time.delayedCall(0, () => this.setup(this.x, this.y, 100))
+        this.visible = false
     }
 
     public setup(xPosition: number, yPosition: number, width: number): void {

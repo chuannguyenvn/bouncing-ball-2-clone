@@ -86,8 +86,11 @@ class LoadScene extends Scene
         PreloadHelper.preloadSound(this, AudioKey.JUMP_2)
         PreloadHelper.preloadSound(this, AudioKey.JUMP_3)
         PreloadHelper.preloadSound(this, AudioKey.GEM)
+        PreloadHelper.preloadSound(this, AudioKey.MASTERPIECE)
+        
+        this.load.tilemapTiledJSON('masterpiece-map', FileLookUp['masterpiece-map'])
 
-        for (let i = 0; i < 500; i++) this.load.image("logo" + i, FileLookUp[SpriteKey.GEM])
+        for (let i = 0; i < 50; i++) this.load.image("logo" + i, FileLookUp[SpriteKey.GEM])
     }
 
     private showLoadingProgress(): void {

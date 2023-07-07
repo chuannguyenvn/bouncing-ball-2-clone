@@ -18,6 +18,9 @@ import Vector2 = Phaser.Math.Vector2
 import POINTER_UP = Phaser.Input.Events.POINTER_UP
 import WebAudioSound = Phaser.Sound.WebAudioSound
 import GameState from "../states/GameState"
+import TilemapLayer = Phaser.Tilemaps.TilemapLayer
+import Tileset = Phaser.Tilemaps.Tileset
+import Platform from "../objects/play/Platform"
 
 class PlayScene extends Phaser.Scene
 {
@@ -43,6 +46,11 @@ class PlayScene extends Phaser.Scene
     public isPressingButton: boolean = false
     public allowPlay: boolean = false
 
+    private masterpiece: WebAudioSound
+
+    private tileset: Tileset
+    private terrainTilemapLayer: TilemapLayer
+    
     constructor() {
         super({key: SceneKey.PLAY})
 
@@ -148,6 +156,11 @@ class PlayScene extends Phaser.Scene
         this.jumpSounds.push(this.sound.add(AudioKey.JUMP_3) as WebAudioSound)
 
         this.gemSound = this.sound.add(AudioKey.GEM) as WebAudioSound
+        
+        if (this.masterpiece) this.masterpiece.stop()
+        this.masterpiece = this.sound.add(AudioKey.MASTERPIECE) as WebAudioSound
+        
+        this.setUpWorld()
     }
 
     public addScore(amount: number): void {
@@ -191,6 +204,18 @@ class PlayScene extends Phaser.Scene
         if (this.startedPlaying) return
         this.stateMachine.changeState(PlayState.MOVING)
         this.startedPlaying = true
+        this.masterpiece.play()
+    }
+
+    private setUpWorld(): void {
+        const map = this.make.tilemap({ key: 'masterpiece-map' })
+
+        const platforms = map.createFromObjects('platforms', {
+            name: 'platform',
+            classType: Platform,
+        })
+
+        console.log(platforms.length)
     }
 }
 
