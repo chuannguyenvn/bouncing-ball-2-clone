@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.10.1" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="8" tileheight="8" infinite="1" nextlayerid="5" nextobjectid="93">
+ <editorsettings>
+  <export target="masterpiece-map.json" format="json"/>
+ </editorsettings>
+ <objectgroup id="4" name="platforms">
+  <object id="10" name="platform" x="-8" y="632" width="16" height="16"/>
+  <object id="11" name="platform" x="112" y="632" width="16" height="16"/>
+  <object id="13" name="platform" x="432" y="632" width="16" height="16"/>
+  <object id="14" name="platform" x="552" y="632" width="16" height="16"/>
+  <object id="15" name="platform" x="872" y="632" width="16" height="16"/>
+  <object id="16" name="platform" x="1008" y="632" width="16" height="16"/>
+  <object id="17" name="platform" x="1216" y="632" width="16" height="16"/>
+  <object id="18" name="platform" x="1568" y="632" width="16" height="16"/>
+  <object id="21" name="platform" x="1688" y="632" width="16" height="16"/>
+  <object id="22" name="platform" x="1992" y="632" width="16" height="16"/>
+  <object id="23" name="platform" x="2112" y="632" width="16" height="16"/>
+  <object id="24" name="platform" x="2432" y="632" width="16" height="16"/>
+  <object id="25" name="platform" x="2632" y="632" width="16" height="16"/>
+  <object id="26" name="platform" x="3232" y="632" width="16" height="16"/>
+  <object id="28" name="platform" x="3352" y="632" width="16" height="16"/>
+  <object id="29" name="platform" x="3672" y="632" width="16" height="16"/>
+  <object id="30" name="platform" x="3792" y="632" width="16" height="16"/>
+  <object id="31" name="platform" x="4112" y="632" width="16" height="16"/>
+  <object id="32" name="platform" x="4232" y="632" width="16" height="16"/>
+  <object id="33" name="platform" x="4392" y="632" width="16" height="16"/>
+  <object id="34" name="platform" x="4792" y="632" width="16" height="16"/>
+  <object id="35" name="platform" x="4912" y="632" width="16" height="16"/>
+  <object id="36" name="platform" x="5232" y="632" width="16" height="16"/>
+  <object id="37" name="platform" x="5352" y="632" width="16" height="16"/>
+  <object id="39" name="platform" x="5872" y="632" width="16" height="16"/>
+  <object id="40" name="platform" x="5512" y="632" width="16" height="16"/>
+  <object id="67" name="platform" x="6432" y="632" width="16" height="16"/>
+  <object id="68" name="platform" x="6552" y="632" width="16" height="16"/>
+  <object id="69" name="platform" x="6872" y="632" width="16" height="16"/>
+  <object id="70" name="platform" x="6992" y="632" width="16" height="16"/>
+  <object id="71" name="platform" x="7312" y="632" width="16" height="16"/>
+  <object id="72" name="platform" x="7448" y="632" width="16" height="16"/>
+  <object id="73" name="platform" x="7656" y="632" width="16" height="16"/>
+  <object id="74" name="platform" x="8008" y="632" width="16" height="16"/>
+  <object id="75" name="platform" x="8128" y="632" width="16" height="16"/>
+  <object id="76" name="platform" x="8432" y="632" width="16" height="16"/>
+  <object id="77" name="platform" x="8552" y="632" width="16" height="16"/>
+  <object id="78" name="platform" x="8872" y="632" width="16" height="16"/>
+  <object id="79" name="platform" x="9072" y="632" width="16" height="16"/>
+  <object id="80" name="platform" x="9672" y="632" width="16" height="16"/>
+  <object id="81" name="platform" x="9792" y="632" width="16" height="16"/>
+  <object id="82" name="platform" x="10112" y="632" width="16" height="16"/>
+  <object id="83" name="platform" x="10232" y="632" width="16" height="16"/>
+  <object id="84" name="platform" x="10552" y="632" width="16" height="16"/>
+  <object id="85" name="platform" x="10672" y="632" width="16" height="16"/>
+  <object id="86" name="platform" x="10872" y="632" width="16" height="16"/>
+  <object id="87" name="platform" x="11232" y="632" width="16" height="16"/>
+  <object id="88" name="platform" x="11352" y="632" width="16" height="16"/>
+  <object id="89" name="platform" x="11728" y="632" width="16" height="16"/>
+  <object id="90" name="platform" x="12040" y="632" width="16" height="16"/>
+  <object id="91" name="platform" x="12504" y="632" width="16" height="16"/>
+  <object id="92" name="platform" x="12120" y="632" width="16" height="16"/>
+ </objectgroup>
+</map>
